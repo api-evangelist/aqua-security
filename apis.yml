@@ -1,0 +1,28 @@
+aid: aqua-security
+name: Aqua Security
+description: >-
+  Aqua Security provides cloud native security for containers, serverless, and cloud workloads across the full application lifecycle.
+type: Index
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+tags:
+  - Containers
+url: >-
+  https://raw.githubusercontent.com/api-evangelist/aqua-security/refs/heads/main/apis.yml
+created: '2026-03-26'
+modified: '2026-03-26'
+specificationVersion: '0.19'
+apis:
+  - aid: aqua-security:aqua-security
+    name: Aqua Security
+    description: >-
+      Aqua Security provides cloud native security for containers, serverless, and cloud workloads across the full application lifecycle.
+    humanURL: https://github.com/api-evangelist/aqua-security
+    tags:
+      - Containers
+    properties: []
+common:
+  - type: Website
+    url: https://github.com/api-evangelist/aqua-security
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
