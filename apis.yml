@@ -1,11 +1,16 @@
 aid: aqua-security
 name: Aqua Security
 description: >-
-  Aqua Security provides cloud native security for containers, serverless, and cloud workloads across the full application lifecycle.
+  Aqua Security provides cloud-native security for the full application lifecycle, protecting containers, serverless functions, and cloud workloads with vulnerability scanning, runtime protection, and compliance enforcement.
 type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
   - Containers
+  - Security
+  - Cloud Native
+  - Vulnerability Scanning
+  - Runtime Protection
+  - Kubernetes
 url: >-
   https://raw.githubusercontent.com/api-evangelist/aqua-security/refs/heads/main/apis.yml
 created: '2026-03-26'
@@ -15,14 +20,33 @@ apis:
   - aid: aqua-security:aqua-security
     name: Aqua Security
     description: >-
-      Aqua Security provides cloud native security for containers, serverless, and cloud workloads across the full application lifecycle.
-    humanURL: https://github.com/api-evangelist/aqua-security
+      Aqua Security provides cloud-native security for the full application lifecycle, protecting containers, serverless functions, and cloud workloads with vulnerability scanning, runtime protection, and compliance enforcement.
+    humanURL: https://www.aquasec.com/
     tags:
       - Containers
-    properties: []
+      - Security
+      - Cloud Native
+      - Vulnerability Scanning
+      - Runtime Protection
+      - Kubernetes
+    properties:
+      - type: Documentation
+        url: https://docs.aquasec.com/
+      - type: Getting Started
+        url: https://docs.aquasec.com/
 common:
   - type: Website
-    url: https://github.com/api-evangelist/aqua-security
+    url: https://www.aquasec.com/
+  - type: Documentation
+    url: https://docs.aquasec.com/
+  - type: GitHub Organization
+    url: https://github.com/aquasecurity
+  - type: Blog
+    url: https://www.aquasec.com/blog/
+  - type: Pricing
+    url: https://www.aquasec.com/aqua-cloud/
+  - type: Sign Up
+    url: https://www.aquasec.com/demo/
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
