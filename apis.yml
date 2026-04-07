@@ -5,12 +5,12 @@ description: >-
 type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
-  - Containers
-  - Security
   - Cloud Native
-  - Vulnerability Scanning
-  - Runtime Protection
+  - Containers
   - Kubernetes
+  - Runtime Protection
+  - Security
+  - Vulnerability Scanning
 url: >-
   https://raw.githubusercontent.com/api-evangelist/aqua-security/refs/heads/main/apis.yml
 created: '2026-03-26'
@@ -23,12 +23,12 @@ apis:
       Aqua Security provides cloud-native security for the full application lifecycle, protecting containers, serverless functions, and cloud workloads with vulnerability scanning, runtime protection, and compliance enforcement.
     humanURL: https://www.aquasec.com/
     tags:
-      - Containers
-      - Security
       - Cloud Native
-      - Vulnerability Scanning
-      - Runtime Protection
+      - Containers
       - Kubernetes
+      - Runtime Protection
+      - Security
+      - Vulnerability Scanning
     properties:
       - type: Documentation
         url: https://docs.aquasec.com/
