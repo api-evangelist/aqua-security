@@ -1,0 +1,19 @@
+{
+  "type": "object",
+  "properties": {
+    "message": {
+      "type": "string",
+      "example": "Unauthorized access",
+      "description": "Human-readable error description"
+    },
+    "code": {
+      "type": "integer",
+      "example": 401,
+      "description": "Error code"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/aqua-security/refs/heads/main/json-schema/aqua-security-api-error-response-schema.json",
+  "title": "ErrorResponse",
+  "description": "ErrorResponse schema from Aqua Security API"
+}

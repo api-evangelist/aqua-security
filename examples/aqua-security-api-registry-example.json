@@ -1,0 +1,7 @@
+{
+  "name": "docker-hub",
+  "type": "HUB",
+  "url": "https://index.docker.io",
+  "username": "myuser",
+  "status": "connected"
+}

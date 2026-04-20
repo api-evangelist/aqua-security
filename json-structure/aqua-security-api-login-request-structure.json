@@ -1,0 +1,23 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "example": "admin",
+      "description": "Username or user ID"
+    },
+    "password": {
+      "type": "string",
+      "example": "s3cur3P@ssw0rd",
+      "description": "User password"
+    }
+  },
+  "required": [
+    "id",
+    "password"
+  ],
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/aqua-security/refs/heads/main/json-structure/aqua-security-api-login-request-structure.json",
+  "name": "LoginRequest",
+  "description": "LoginRequest schema from Aqua Security API"
+}

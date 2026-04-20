@@ -1,0 +1,6 @@
+{
+  "id": "admin",
+  "name": "Administrator",
+  "role": "administrator",
+  "email": "admin@example.com"
+}

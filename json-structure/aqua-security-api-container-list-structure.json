@@ -1,0 +1,57 @@
+{
+  "type": "object",
+  "properties": {
+    "count": {
+      "type": "int32",
+      "example": 50,
+      "description": "Total number of containers"
+    },
+    "result": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "container_id": {
+            "type": "string",
+            "example": "abc123def456",
+            "description": "Container ID"
+          },
+          "name": {
+            "type": "string",
+            "example": "web-server-1",
+            "description": "Container name"
+          },
+          "image": {
+            "type": "string",
+            "example": "nginx:latest",
+            "description": "Image name and tag"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "running",
+              "stopped",
+              "paused"
+            ],
+            "example": "running",
+            "description": "Container runtime status"
+          },
+          "policy": {
+            "type": "string",
+            "example": "default",
+            "description": "Applied security policy name"
+          },
+          "host": {
+            "type": "string",
+            "example": "kube-node-01",
+            "description": "Host running the container"
+          }
+        }
+      }
+    }
+  },
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/aqua-security/refs/heads/main/json-structure/aqua-security-api-container-list-structure.json",
+  "name": "ContainerList",
+  "description": "ContainerList schema from Aqua Security API"
+}

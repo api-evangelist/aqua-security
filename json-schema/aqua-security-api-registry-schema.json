@@ -1,0 +1,48 @@
+{
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "example": "docker-hub",
+      "description": "Registry display name"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "HUB",
+        "V2",
+        "ECR",
+        "ACR",
+        "GCR",
+        "JFrog",
+        "Harbor"
+      ],
+      "example": "HUB",
+      "description": "Registry type"
+    },
+    "url": {
+      "type": "string",
+      "example": "https://index.docker.io",
+      "description": "Registry URL"
+    },
+    "username": {
+      "type": "string",
+      "example": "myuser",
+      "description": "Authentication username"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "connected",
+        "disconnected",
+        "error"
+      ],
+      "example": "connected",
+      "description": "Connection status"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/aqua-security/refs/heads/main/json-schema/aqua-security-api-registry-schema.json",
+  "title": "Registry",
+  "description": "Registry schema from Aqua Security API"
+}

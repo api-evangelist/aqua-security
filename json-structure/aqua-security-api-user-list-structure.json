@@ -1,0 +1,50 @@
+{
+  "type": "object",
+  "properties": {
+    "count": {
+      "type": "int32",
+      "example": 10,
+      "description": "Total number of users"
+    },
+    "result": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "admin",
+            "description": "User login ID"
+          },
+          "name": {
+            "type": "string",
+            "example": "Administrator",
+            "description": "User display name"
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "administrator",
+              "auditor",
+              "scanner",
+              "image_assurance",
+              "runtime_policy"
+            ],
+            "example": "administrator",
+            "description": "User role"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "example": "admin@example.com",
+            "description": "User email address"
+          }
+        }
+      }
+    }
+  },
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/aqua-security/refs/heads/main/json-structure/aqua-security-api-user-list-structure.json",
+  "name": "UserList",
+  "description": "UserList schema from Aqua Security API"
+}

@@ -1,0 +1,4 @@
+{
+  "registry": "docker-hub",
+  "image": "nginx:latest"
+}

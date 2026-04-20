@@ -1,0 +1,283 @@
+rules:
+
+  # INFO / METADATA
+  info-title-required:
+    description: Info object must have a title starting with "Aqua Security"
+    severity: error
+    given: "$.info"
+    then:
+      field: title
+      function: pattern
+      functionOptions:
+        match: "^Aqua Security"
+
+  info-description-required:
+    description: Info object must have a description with at least 50 characters
+    severity: warn
+    given: "$.info"
+    then:
+      field: description
+      function: truthy
+
+  info-version-required:
+    description: Info object must have a version
+    severity: error
+    given: "$.info"
+    then:
+      field: version
+      function: truthy
+
+  info-contact-required:
+    description: API should have contact information
+    severity: warn
+    given: "$.info"
+    then:
+      field: contact
+      function: truthy
+
+  # OPENAPI VERSION
+  openapi-version-3:
+    description: Use OpenAPI 3.0.x
+    severity: error
+    given: "$"
+    then:
+      field: openapi
+      function: pattern
+      functionOptions:
+        match: "^3\\.0\\."
+
+  # SERVERS
+  servers-defined:
+    description: Servers must be defined
+    severity: error
+    given: "$"
+    then:
+      field: servers
+      function: truthy
+
+  servers-https-only:
+    description: Server URLs should use HTTPS
+    severity: warn
+    given: "$.servers[*]"
+    then:
+      field: url
+      function: pattern
+      functionOptions:
+        match: "^https://"
+
+  # PATHS - NAMING CONVENTIONS
+  paths-kebab-case:
+    description: Path segments should use kebab-case
+    severity: warn
+    given: "$.paths"
+    then:
+      field: "@key"
+      function: pattern
+      functionOptions:
+        match: "^(\\/[a-z0-9][a-z0-9-]*[a-z0-9]?|\\{[a-z][a-zA-Z0-9_]*\\})*\\/?$"
+
+  paths-no-trailing-slash:
+    description: Paths should not have trailing slashes
+    severity: warn
+    given: "$.paths"
+    then:
+      field: "@key"
+      function: pattern
+      functionOptions:
+        notMatch: "\\/$"
+
+  # OPERATIONS
+  operation-summary-required:
+    description: Every operation must have a summary
+    severity: error
+    given: "$.paths[*][get,post,put,delete,patch]"
+    then:
+      field: summary
+      function: truthy
+
+  operation-summary-prefix:
+    description: Operation summaries should start with "Aqua Security"
+    severity: warn
+    given: "$.paths[*][get,post,put,delete,patch]"
+    then:
+      field: summary
+      function: pattern
+      functionOptions:
+        match: "^Aqua Security"
+
+  operation-description-required:
+    description: Every operation should have a description
+    severity: warn
+    given: "$.paths[*][get,post,put,delete,patch]"
+    then:
+      field: description
+      function: truthy
+
+  operation-id-required:
+    description: Every operation must have an operationId
+    severity: error
+    given: "$.paths[*][get,post,put,delete,patch]"
+    then:
+      field: operationId
+      function: truthy
+
+  operation-id-camel-case:
+    description: OperationId should use camelCase
+    severity: warn
+    given: "$.paths[*][get,post,put,delete,patch]"
+    then:
+      field: operationId
+      function: pattern
+      functionOptions:
+        match: "^[a-z][a-zA-Z0-9]*$"
+
+  operation-tags-required:
+    description: Every operation must have at least one tag
+    severity: error
+    given: "$.paths[*][get,post,put,delete,patch]"
+    then:
+      field: tags
+      function: truthy
+
+  # PARAMETERS
+  parameter-description-required:
+    description: All parameters must have a description
+    severity: warn
+    given: "$.paths[*][*].parameters[*]"
+    then:
+      field: description
+      function: truthy
+
+  parameter-snake-case:
+    description: Parameter names should use snake_case or kebab-case
+    severity: info
+    given: "$.paths[*][*].parameters[*]"
+    then:
+      field: name
+      function: pattern
+      functionOptions:
+        match: "^[a-z][a-z0-9_-]*$"
+
+  # REQUEST BODIES
+  request-body-content-type:
+    description: Request bodies should use application/json
+    severity: warn
+    given: "$.paths[*][post,put,patch].requestBody.content"
+    then:
+      field: "@key"
+      function: enumeration
+      functionOptions:
+        values:
+          - application/json
+          - multipart/form-data
+          - application/x-www-form-urlencoded
+
+  # RESPONSES
+  response-success-required:
+    description: Every operation must have a success (2xx) response
+    severity: error
+    given: "$.paths[*][get,post,put,delete,patch].responses"
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: object
+          minProperties: 1
+
+  response-401-required:
+    description: Secured endpoints should document 401 responses
+    severity: warn
+    given: "$.paths[*][get,post,put,delete,patch].responses"
+    then:
+      field: "401"
+      function: truthy
+
+  response-description-required:
+    description: All responses must have a description
+    severity: error
+    given: "$.paths[*][*].responses[*]"
+    then:
+      field: description
+      function: truthy
+
+  # SCHEMAS
+  schema-type-defined:
+    description: Schema properties should have a type defined
+    severity: warn
+    given: "$.components.schemas[*].properties[*]"
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: object
+          anyOf:
+            - required: [type]
+            - required: [$ref]
+
+  schema-description-recommended:
+    description: Top-level schemas should have a description
+    severity: info
+    given: "$.components.schemas[*]"
+    then:
+      field: description
+      function: truthy
+
+  # SECURITY
+  security-schemes-defined:
+    description: Security schemes must be defined in components
+    severity: error
+    given: "$.components"
+    then:
+      field: securitySchemes
+      function: truthy
+
+  security-bearer-description:
+    description: Bearer auth security scheme should have a description
+    severity: warn
+    given: "$.components.securitySchemes[*]"
+    then:
+      field: description
+      function: truthy
+
+  # HTTP METHOD CONVENTIONS
+  get-no-request-body:
+    description: GET operations should not have a request body
+    severity: error
+    given: "$.paths[*].get"
+    then:
+      field: requestBody
+      function: falsy
+
+  delete-no-request-body:
+    description: DELETE operations should not have a request body
+    severity: warn
+    given: "$.paths[*].delete"
+    then:
+      field: requestBody
+      function: falsy
+
+  delete-returns-204:
+    description: DELETE operations should return 204
+    severity: info
+    given: "$.paths[*].delete.responses"
+    then:
+      field: "204"
+      function: truthy
+
+  # GENERAL QUALITY
+  no-empty-descriptions:
+    description: Descriptions should not be empty strings
+    severity: error
+    given: "$..description"
+    then:
+      function: pattern
+      functionOptions:
+        match: ".+"
+
+  tags-global-defined:
+    description: Tags should be defined globally with descriptions
+    severity: warn
+    given: "$"
+    then:
+      field: tags
+      function: truthy

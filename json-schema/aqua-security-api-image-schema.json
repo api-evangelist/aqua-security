@@ -1,0 +1,75 @@
+{
+  "type": "object",
+  "properties": {
+    "registry": {
+      "type": "string",
+      "example": "docker-hub",
+      "description": "Name of the container registry"
+    },
+    "name": {
+      "type": "string",
+      "example": "nginx",
+      "description": "Image repository name"
+    },
+    "tag": {
+      "type": "string",
+      "example": "latest",
+      "description": "Image tag"
+    },
+    "digest": {
+      "type": "string",
+      "example": "sha256:a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2",
+      "description": "Image content digest (SHA256)"
+    },
+    "scan_status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "in-progress",
+        "completed",
+        "failed"
+      ],
+      "example": "completed",
+      "description": "Current scan status"
+    },
+    "vulnerabilities": {
+      "type": "object",
+      "properties": {
+        "critical": {
+          "type": "integer",
+          "example": 0,
+          "description": "Number of critical severity vulnerabilities"
+        },
+        "high": {
+          "type": "integer",
+          "example": 3,
+          "description": "Number of high severity vulnerabilities"
+        },
+        "medium": {
+          "type": "integer",
+          "example": 12,
+          "description": "Number of medium severity vulnerabilities"
+        },
+        "low": {
+          "type": "integer",
+          "example": 24,
+          "description": "Number of low severity vulnerabilities"
+        },
+        "negligible": {
+          "type": "integer",
+          "example": 5,
+          "description": "Number of negligible severity vulnerabilities"
+        }
+      }
+    },
+    "disallowed": {
+      "type": "boolean",
+      "example": false,
+      "description": "Whether the image is blocked by policy"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/aqua-security/refs/heads/main/json-schema/aqua-security-api-image-schema.json",
+  "title": "Image",
+  "description": "Image schema from Aqua Security API"
+}

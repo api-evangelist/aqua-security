@@ -1,0 +1,8 @@
+{
+  "container_id": "abc123def456",
+  "name": "web-server-1",
+  "image": "nginx:latest",
+  "status": "running",
+  "policy": "default",
+  "host": "kube-node-01"
+}

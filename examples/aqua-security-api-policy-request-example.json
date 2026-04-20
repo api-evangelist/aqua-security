@@ -1,0 +1,6 @@
+{
+  "name": "high-security",
+  "description": "Policy blocking high severity vulnerabilities",
+  "block_failed": true,
+  "maximum_score": 7.0
+}

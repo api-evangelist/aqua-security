@@ -1,0 +1,13 @@
+{
+  "registry": "docker-hub",
+  "name": "nginx",
+  "tag": "latest",
+  "digest": "sha256:a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2",
+  "scan_status": "completed",
+  "vulnerabilities": "example",
+  "disallowed": false,
+  "os": "debian:bullseye-slim",
+  "size": 142000000,
+  "created": "2025-03-15T14:30:00Z",
+  "scan_date": "2026-04-18T10:00:00Z"
+}

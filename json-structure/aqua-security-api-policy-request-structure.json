@@ -1,0 +1,32 @@
+{
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "example": "high-security",
+      "description": "Policy name (unique)"
+    },
+    "description": {
+      "type": "string",
+      "example": "Policy blocking high severity vulnerabilities",
+      "description": "Policy description"
+    },
+    "block_failed": {
+      "type": "boolean",
+      "example": true,
+      "description": "Block containers failing policy"
+    },
+    "maximum_score": {
+      "type": "double",
+      "example": 7.0,
+      "description": "Maximum CVSS score threshold"
+    }
+  },
+  "required": [
+    "name"
+  ],
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/aqua-security/refs/heads/main/json-structure/aqua-security-api-policy-request-structure.json",
+  "name": "PolicyRequest",
+  "description": "PolicyRequest schema from Aqua Security API"
+}

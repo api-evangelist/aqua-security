@@ -1,0 +1,6 @@
+{
+  "name": "default",
+  "description": "Default security policy",
+  "block_failed": true,
+  "maximum_score": 7.0
+}

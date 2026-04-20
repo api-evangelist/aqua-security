@@ -1,0 +1,42 @@
+{
+  "type": "object",
+  "properties": {
+    "count": {
+      "type": "int32",
+      "example": 5,
+      "description": "Total number of policies"
+    },
+    "result": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "default",
+            "description": "Policy name"
+          },
+          "description": {
+            "type": "string",
+            "example": "Default security policy",
+            "description": "Policy description"
+          },
+          "block_failed": {
+            "type": "boolean",
+            "example": true,
+            "description": "Whether to block containers that fail policy evaluation"
+          },
+          "maximum_score": {
+            "type": "float",
+            "example": 7.0,
+            "description": "Maximum CVSS score allowed (0-10)"
+          }
+        }
+      }
+    }
+  },
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/aqua-security/refs/heads/main/json-structure/aqua-security-api-policy-list-structure.json",
+  "name": "PolicyList",
+  "description": "PolicyList schema from Aqua Security API"
+}

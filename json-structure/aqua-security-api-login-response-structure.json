@@ -1,0 +1,14 @@
+{
+  "type": "object",
+  "properties": {
+    "token": {
+      "type": "string",
+      "example": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.abc123",
+      "description": "JWT bearer token for subsequent API calls"
+    }
+  },
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/aqua-security/refs/heads/main/json-structure/aqua-security-api-login-response-structure.json",
+  "name": "LoginResponse",
+  "description": "LoginResponse schema from Aqua Security API"
+}

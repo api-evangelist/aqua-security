@@ -1,0 +1,23 @@
+{
+  "type": "object",
+  "properties": {
+    "registry": {
+      "type": "string",
+      "example": "docker-hub",
+      "description": "Name of the configured registry"
+    },
+    "image": {
+      "type": "string",
+      "example": "nginx:latest",
+      "description": "Full image name including tag"
+    }
+  },
+  "required": [
+    "registry",
+    "image"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/aqua-security/refs/heads/main/json-schema/aqua-security-api-image-request-schema.json",
+  "title": "ImageRequest",
+  "description": "ImageRequest schema from Aqua Security API"
+}

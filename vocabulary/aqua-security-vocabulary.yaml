@@ -1,0 +1,205 @@
+vocabulary: "1.0.0"
+
+info:
+  provider: Aqua Security
+  description: Unified vocabulary and taxonomy for the Aqua Security cloud-native security platform covering container scanning, runtime protection, Kubernetes security, and CSPM.
+  created: '2026-04-19'
+  modified: '2026-04-19'
+
+operational:
+  apis:
+    - name: Aqua Security REST API
+      namespace: aqua-security
+      version: '2022.4'
+      baseUrl: https://{tenant}.cloud.aquasec.com/api
+      status: active
+    - name: Trivy
+      namespace: trivy
+      version: '0.50+'
+      baseUrl: https://aquasecurity.github.io/trivy/
+      status: active
+    - name: Tracee
+      namespace: tracee
+      version: '0.20+'
+      baseUrl: https://aquasecurity.github.io/tracee/
+      status: active
+
+  resources:
+    - name: images
+      description: Container images registered for scanning and policy enforcement
+      apis: [aqua-security]
+      actions: [list, get, register, delete, scan]
+    - name: containers
+      description: Running containers monitored by Aqua enforcement agents
+      apis: [aqua-security]
+      actions: [list, get]
+    - name: policies
+      description: Security image assurance and runtime policies
+      apis: [aqua-security]
+      actions: [list, create, get, update, delete]
+    - name: registries
+      description: Container registry configurations for image scanning
+      apis: [aqua-security]
+      actions: [list, create, get, update, delete]
+    - name: users
+      description: Platform users and role assignments
+      apis: [aqua-security]
+      actions: [list, create, get, update, delete]
+    - name: vulnerabilities
+      description: CVE and vulnerability findings from image scans
+      apis: [aqua-security]
+      actions: [list, get]
+
+  actions:
+    - name: list
+      httpMethod: GET
+      pattern: read
+      description: Retrieve a paginated collection of resources
+    - name: get
+      httpMethod: GET
+      pattern: read
+      description: Retrieve a single resource by identifier
+    - name: create
+      httpMethod: POST
+      pattern: write
+      description: Create a new resource
+    - name: update
+      httpMethod: PUT
+      pattern: write
+      description: Update an existing resource
+    - name: delete
+      httpMethod: DELETE
+      pattern: destructive
+      description: Delete a resource
+    - name: scan
+      httpMethod: POST
+      pattern: query
+      description: Trigger a security scan on an image or workload
+    - name: register
+      httpMethod: POST
+      pattern: write
+      description: Register an image or resource in the platform
+
+  schemas:
+    security:
+      - name: Image
+        description: Container image with scan results and policy status
+        properties: [registry, name, tag, digest, scan_status, vulnerabilities, disallowed]
+      - name: ImageDetail
+        description: Extended image details including OS, size, and scan date
+        properties: [os, size, created, scan_date]
+      - name: Container
+        description: Running container with applied policy
+        properties: [container_id, name, image, status, policy, host]
+      - name: Policy
+        description: Security assurance policy with blocking rules
+        properties: [name, description, block_failed, maximum_score]
+      - name: Registry
+        description: Container registry connection configuration
+        properties: [name, type, url, username, status]
+      - name: User
+        description: Platform user with role assignment
+        properties: [id, name, role, email]
+      - name: VulnerabilityCounts
+        description: Severity-grouped vulnerability counts
+        properties: [critical, high, medium, low, negligible]
+
+  parameters:
+    pagination:
+      - name: page
+        description: Page number for pagination
+      - name: pagesize
+        description: Number of results per page
+    filters:
+      - name: registry
+        description: Filter by registry name
+      - name: repository
+        description: Filter by repository name
+      - name: tag
+        description: Filter by image tag
+      - name: status
+        description: Filter by container status
+
+  enums:
+    scan_status:
+      - pending
+      - in-progress
+      - completed
+      - failed
+    severity:
+      - critical
+      - high
+      - medium
+      - low
+      - negligible
+    container_status:
+      - running
+      - stopped
+      - paused
+    registry_type:
+      - HUB
+      - V2
+      - ECR
+      - ACR
+      - GCR
+      - JFrog
+      - Harbor
+    user_role:
+      - administrator
+      - auditor
+      - scanner
+      - image_assurance
+      - runtime_policy
+
+  authentication:
+    schemes:
+      - type: bearer
+        format: JWT
+        description: JWT token obtained from the /v1/login endpoint
+        usedBy: [Aqua Security REST API]
+
+capability:
+  workflows: []
+  personas:
+    - id: devsecops-engineer
+      name: DevSecOps Engineer
+      description: Integrates security scanning into CI/CD pipelines
+      workflows: []
+    - id: soc-analyst
+      name: SOC Analyst
+      description: Monitors runtime security events and responds to container threats
+      workflows: []
+    - id: platform-admin
+      name: Platform Administrator
+      description: Manages Aqua platform configuration, users, and policies
+      workflows: []
+  domains:
+    - name: Container Security
+      description: Securing container images throughout build-to-runtime lifecycle
+    - name: Runtime Protection
+      description: Real-time monitoring and enforcement for running containers
+    - name: Compliance
+      description: Regulatory compliance enforcement and auditing
+    - name: Vulnerability Management
+      description: CVE identification, prioritization, and remediation
+  namespaces:
+    - type: consumed
+      namespace: aqua-security
+  binds: []
+
+crossReference:
+  - resource: images
+    operations: [listImages, registerImage, getImage, deleteImage]
+    personas: [devsecops-engineer, soc-analyst]
+  - resource: containers
+    operations: [listContainers]
+    personas: [soc-analyst, platform-admin]
+  - resource: policies
+    operations: [listPolicies, createPolicy]
+    personas: [platform-admin]
+  - resource: registries
+    operations: [listRegistries]
+    personas: [platform-admin, devsecops-engineer]
+  - resource: users
+    operations: [listUsers]
+    personas: [platform-admin]

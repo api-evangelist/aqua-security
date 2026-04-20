@@ -1,0 +1,142 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "aqua": "https://aquasec.com/schema/",
+    "schema": "https://schema.org/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "LoginRequest": "aqua:LoginRequest",
+    "LoginResponse": "aqua:LoginResponse",
+    "ErrorResponse": "aqua:ErrorResponse",
+    "VulnerabilityCounts": "aqua:VulnerabilityCounts",
+    "Image": "aqua:Image",
+    "ImageList": "aqua:ImageList",
+    "ImageRequest": "aqua:ImageRequest",
+    "Container": "aqua:Container",
+    "ContainerList": "aqua:ContainerList",
+    "Policy": "aqua:Policy",
+    "PolicyList": "aqua:PolicyList",
+    "PolicyRequest": "aqua:PolicyRequest",
+    "Registry": "aqua:Registry",
+    "RegistryList": "aqua:RegistryList",
+    "User": "aqua:User",
+    "UserList": "aqua:UserList",
+    "blockFailed": {
+      "@id": "aqua:block_failed",
+      "@type": "xsd:boolean"
+    },
+    "code": {
+      "@id": "aqua:code",
+      "@type": "xsd:integer"
+    },
+    "containerId": {
+      "@id": "aqua:container_id",
+      "@type": "xsd:string"
+    },
+    "count": {
+      "@id": "aqua:count",
+      "@type": "xsd:integer"
+    },
+    "critical": {
+      "@id": "aqua:critical",
+      "@type": "xsd:integer"
+    },
+    "description": "schema:description",
+    "digest": {
+      "@id": "aqua:digest",
+      "@type": "xsd:string"
+    },
+    "disallowed": {
+      "@id": "aqua:disallowed",
+      "@type": "xsd:boolean"
+    },
+    "email": "schema:email",
+    "high": {
+      "@id": "aqua:high",
+      "@type": "xsd:integer"
+    },
+    "host": {
+      "@id": "aqua:host",
+      "@type": "xsd:string"
+    },
+    "id": {
+      "@id": "aqua:id",
+      "@type": "xsd:string"
+    },
+    "image": {
+      "@id": "aqua:image",
+      "@type": "xsd:string"
+    },
+    "low": {
+      "@id": "aqua:low",
+      "@type": "xsd:integer"
+    },
+    "maximumScore": {
+      "@id": "aqua:maximum_score",
+      "@type": "xsd:decimal"
+    },
+    "medium": {
+      "@id": "aqua:medium",
+      "@type": "xsd:integer"
+    },
+    "message": {
+      "@id": "aqua:message",
+      "@type": "xsd:string"
+    },
+    "name": "schema:name",
+    "negligible": {
+      "@id": "aqua:negligible",
+      "@type": "xsd:integer"
+    },
+    "password": {
+      "@id": "aqua:password",
+      "@type": "xsd:string"
+    },
+    "policy": {
+      "@id": "aqua:policy",
+      "@type": "xsd:string"
+    },
+    "registry": {
+      "@id": "aqua:registry",
+      "@type": "xsd:string"
+    },
+    "result": {
+      "@id": "aqua:result",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "role": {
+      "@id": "aqua:role",
+      "@type": "xsd:string"
+    },
+    "scanStatus": {
+      "@id": "aqua:scan_status",
+      "@type": "xsd:string"
+    },
+    "status": {
+      "@id": "aqua:status",
+      "@type": "xsd:string"
+    },
+    "tag": {
+      "@id": "aqua:tag",
+      "@type": "xsd:string"
+    },
+    "token": {
+      "@id": "aqua:token",
+      "@type": "xsd:string"
+    },
+    "type": {
+      "@id": "aqua:type",
+      "@type": "xsd:string"
+    },
+    "url": "schema:url",
+    "username": {
+      "@id": "aqua:username",
+      "@type": "xsd:string"
+    },
+    "vulnerabilities": {
+      "@id": "aqua:vulnerabilities",
+      "@type": "xsd:string"
+    }
+  }
+}
