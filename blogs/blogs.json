@@ -1,0 +1,13 @@
+{
+  "repo": "aqua-security",
+  "feeds": [
+    {
+      "source": "https://www.aquasec.com/blog/",
+      "feed_url": "https://www.aquasec.com/feed/",
+      "saved": 10,
+      "title": "Aqua"
+    }
+  ],
+  "post_count": 10,
+  "fetched": "2026-05-03T23:22:41Z"
+}
