@@ -1,0 +1,80 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Aqua Security REST API — Authentication
+  description: 'Aqua Security REST API — Authentication. 1 operations. Lead operation: Aqua Security Authenticate User. Self-contained
+    Naftiko capability covering one Aqua Security business surface.'
+  tags:
+  - Aqua Security
+  - Authentication
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    AQUA_SECURITY_API_KEY: AQUA_SECURITY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: aqua-security-authentication
+    baseUri: https://{tenant}.cloud.aquasec.com/api
+    description: Aqua Security REST API — Authentication business capability. Self-contained, no shared references.
+    resources:
+    - name: v1-login
+      path: /v1/login
+      operations:
+      - name: login
+        method: POST
+        description: Aqua Security Authenticate User
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.AQUA_SECURITY_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: aqua-security-authentication-rest
+    port: 8080
+    description: REST adapter for Aqua Security REST API — Authentication. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/v1/login
+      name: v1-login
+      description: REST surface for v1-login.
+      operations:
+      - method: POST
+        name: login
+        description: Aqua Security Authenticate User
+        call: aqua-security-authentication.login
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: aqua-security-authentication-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Aqua Security REST API — Authentication. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: aqua-security-authenticate-user
+      description: Aqua Security Authenticate User
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: aqua-security-authentication.login
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

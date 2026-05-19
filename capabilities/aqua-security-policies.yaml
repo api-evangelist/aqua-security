@@ -1,0 +1,105 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Aqua Security REST API — Policies
+  description: 'Aqua Security REST API — Policies. 2 operations. Lead operation: Aqua Security List Security Policies. Self-contained
+    Naftiko capability covering one Aqua Security business surface.'
+  tags:
+  - Aqua Security
+  - Policies
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    AQUA_SECURITY_API_KEY: AQUA_SECURITY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: aqua-security-policies
+    baseUri: https://{tenant}.cloud.aquasec.com/api
+    description: Aqua Security REST API — Policies business capability. Self-contained, no shared references.
+    resources:
+    - name: v1-securitypolicies
+      path: /v1/securitypolicies
+      operations:
+      - name: listpolicies
+        method: GET
+        description: Aqua Security List Security Policies
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createpolicy
+        method: POST
+        description: Aqua Security Create Security Policy
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.AQUA_SECURITY_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: aqua-security-policies-rest
+    port: 8080
+    description: REST adapter for Aqua Security REST API — Policies. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/v1/securitypolicies
+      name: v1-securitypolicies
+      description: REST surface for v1-securitypolicies.
+      operations:
+      - method: GET
+        name: listpolicies
+        description: Aqua Security List Security Policies
+        call: aqua-security-policies.listpolicies
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createpolicy
+        description: Aqua Security Create Security Policy
+        call: aqua-security-policies.createpolicy
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: aqua-security-policies-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Aqua Security REST API — Policies. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: aqua-security-list-security-policies
+      description: Aqua Security List Security Policies
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: aqua-security-policies.listpolicies
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: aqua-security-create-security-policy
+      description: Aqua Security Create Security Policy
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: aqua-security-policies.createpolicy
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

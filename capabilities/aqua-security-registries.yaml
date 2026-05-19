@@ -1,0 +1,70 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Aqua Security REST API — Registries
+  description: 'Aqua Security REST API — Registries. 1 operations. Lead operation: Aqua Security List Registries. Self-contained
+    Naftiko capability covering one Aqua Security business surface.'
+  tags:
+  - Aqua Security
+  - Registries
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    AQUA_SECURITY_API_KEY: AQUA_SECURITY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: aqua-security-registries
+    baseUri: https://{tenant}.cloud.aquasec.com/api
+    description: Aqua Security REST API — Registries business capability. Self-contained, no shared references.
+    resources:
+    - name: v1-registries
+      path: /v1/registries
+      operations:
+      - name: listregistries
+        method: GET
+        description: Aqua Security List Registries
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.AQUA_SECURITY_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: aqua-security-registries-rest
+    port: 8080
+    description: REST adapter for Aqua Security REST API — Registries. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/v1/registries
+      name: v1-registries
+      description: REST surface for v1-registries.
+      operations:
+      - method: GET
+        name: listregistries
+        description: Aqua Security List Registries
+        call: aqua-security-registries.listregistries
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: aqua-security-registries-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Aqua Security REST API — Registries. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: aqua-security-list-registries
+      description: Aqua Security List Registries
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: aqua-security-registries.listregistries
+      outputParameters:
+      - type: object
+        mapping: $.

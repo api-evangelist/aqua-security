@@ -1,0 +1,243 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Aqua Security REST API — Images
+  description: 'Aqua Security REST API — Images. 4 operations. Lead operation: Aqua Security List Images. Self-contained Naftiko
+    capability covering one Aqua Security business surface.'
+  tags:
+  - Aqua Security
+  - Images
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    AQUA_SECURITY_API_KEY: AQUA_SECURITY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: aqua-security-images
+    baseUri: https://{tenant}.cloud.aquasec.com/api
+    description: Aqua Security REST API — Images business capability. Self-contained, no shared references.
+    resources:
+    - name: v1-images
+      path: /v1/images
+      operations:
+      - name: listimages
+        method: GET
+        description: Aqua Security List Images
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: registry
+          in: query
+          type: string
+          description: Filter images by registry name
+        - name: repository
+          in: query
+          type: string
+          description: Filter images by repository name
+        - name: tag
+          in: query
+          type: string
+          description: Filter images by tag
+        - name: page
+          in: query
+          type: integer
+          description: Page number for pagination
+        - name: pagesize
+          in: query
+          type: integer
+          description: Number of results per page
+      - name: registerimage
+        method: POST
+        description: Aqua Security Register Image
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: v1-images-registry-image_name-image_tag
+      path: /v1/images/{registry}/{image_name}/{image_tag}
+      operations:
+      - name: getimage
+        method: GET
+        description: Aqua Security Get Image Details
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: registry
+          in: path
+          type: string
+          description: Registry name
+          required: true
+        - name: image_name
+          in: path
+          type: string
+          description: Image repository name
+          required: true
+        - name: image_tag
+          in: path
+          type: string
+          description: Image tag
+          required: true
+      - name: deleteimage
+        method: DELETE
+        description: Aqua Security Delete Image
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: registry
+          in: path
+          type: string
+          description: Registry name
+          required: true
+        - name: image_name
+          in: path
+          type: string
+          description: Image repository name
+          required: true
+        - name: image_tag
+          in: path
+          type: string
+          description: Image tag
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.AQUA_SECURITY_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: aqua-security-images-rest
+    port: 8080
+    description: REST adapter for Aqua Security REST API — Images. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/v1/images
+      name: v1-images
+      description: REST surface for v1-images.
+      operations:
+      - method: GET
+        name: listimages
+        description: Aqua Security List Images
+        call: aqua-security-images.listimages
+        with:
+          registry: rest.registry
+          repository: rest.repository
+          tag: rest.tag
+          page: rest.page
+          pagesize: rest.pagesize
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: registerimage
+        description: Aqua Security Register Image
+        call: aqua-security-images.registerimage
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/images/{registry}/{image-name}/{image-tag}
+      name: v1-images-registry-image-name-image-tag
+      description: REST surface for v1-images-registry-image_name-image_tag.
+      operations:
+      - method: GET
+        name: getimage
+        description: Aqua Security Get Image Details
+        call: aqua-security-images.getimage
+        with:
+          registry: rest.registry
+          image_name: rest.image_name
+          image_tag: rest.image_tag
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleteimage
+        description: Aqua Security Delete Image
+        call: aqua-security-images.deleteimage
+        with:
+          registry: rest.registry
+          image_name: rest.image_name
+          image_tag: rest.image_tag
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: aqua-security-images-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Aqua Security REST API — Images. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: aqua-security-list-images
+      description: Aqua Security List Images
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: aqua-security-images.listimages
+      with:
+        registry: tools.registry
+        repository: tools.repository
+        tag: tools.tag
+        page: tools.page
+        pagesize: tools.pagesize
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: aqua-security-register-image
+      description: Aqua Security Register Image
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: aqua-security-images.registerimage
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: aqua-security-get-image-details
+      description: Aqua Security Get Image Details
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: aqua-security-images.getimage
+      with:
+        registry: tools.registry
+        image_name: tools.image_name
+        image_tag: tools.image_tag
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: aqua-security-delete-image
+      description: Aqua Security Delete Image
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: aqua-security-images.deleteimage
+      with:
+        registry: tools.registry
+        image_name: tools.image_name
+        image_tag: tools.image_tag
+      outputParameters:
+      - type: object
+        mapping: $.
