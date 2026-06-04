@@ -1,0 +1,140 @@
+arazzo: 1.0.1
+info:
+  title: Aqua Security Onboard Registry Image
+  summary: Authenticate, confirm the target registry is configured, register an image from it, then poll the scan to completion.
+  description: >-
+    Onboards a new image into Aqua only once its backing registry is confirmed.
+    The workflow logs in, lists the configured registries and branches on
+    whether the requested registry is present, registers the image when the
+    registry exists, and then polls the image detail until its scan reaches a
+    terminal state and returns the vulnerability counts. Every step spells out
+    its request inline so the flow can be read and executed without opening the
+    underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: aquaSecurityApi
+  url: ../openapi/aqua-security-api.yaml
+  type: openapi
+workflows:
+- workflowId: onboard-registry-image
+  summary: Confirm a registry exists, register an image from it, and poll the scan.
+  description: >-
+    Logs in, lists registries and branches on whether the target registry
+    exists, registers the image when present, then polls the scan to completion.
+  inputs:
+    type: object
+    required:
+    - id
+    - password
+    - registry
+    - image
+    - image_name
+    - image_tag
+    properties:
+      id:
+        type: string
+        description: Aqua username or user ID used to authenticate.
+      password:
+        type: string
+        description: Aqua user password used to authenticate.
+      registry:
+        type: string
+        description: Registry name the image must be onboarded from (e.g. docker-hub).
+      image:
+        type: string
+        description: Full image name including tag to register (e.g. nginx:latest).
+      image_name:
+        type: string
+        description: Image repository name used to read the scan result (e.g. nginx).
+      image_tag:
+        type: string
+        description: Image tag used to read the scan result (e.g. latest).
+  steps:
+  - stepId: authenticate
+    description: >-
+      Authenticate the user and obtain a JWT bearer token for the registry and
+      image calls.
+    operationId: login
+    requestBody:
+      contentType: application/json
+      payload:
+        id: $inputs.id
+        password: $inputs.password
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      token: $response.body#/token
+  - stepId: listRegistries
+    description: >-
+      List configured registries and branch on whether the requested registry
+      is present before attempting to register an image from it.
+    operationId: listRegistries
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $steps.authenticate.outputs.token"
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      count: $response.body#/count
+    onSuccess:
+    - name: registryPresent
+      type: goto
+      stepId: registerImage
+      criteria:
+      - context: $response.body
+        condition: $.result[?(@.name == '$inputs.registry')] != null
+        type: jsonpath
+  - stepId: registerImage
+    description: >-
+      Register the image from the confirmed registry so the platform begins
+      scanning it.
+    operationId: registerImage
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $steps.authenticate.outputs.token"
+    requestBody:
+      contentType: application/json
+      payload:
+        registry: $inputs.registry
+        image: $inputs.image
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      scanStatus: $response.body#/scan_status
+  - stepId: pollScan
+    description: >-
+      Read the image detail and loop until the scan reaches a terminal
+      completed or failed state, returning the vulnerability counts.
+    operationId: getImage
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $steps.authenticate.outputs.token"
+    - name: registry
+      in: path
+      value: $inputs.registry
+    - name: image_name
+      in: path
+      value: $inputs.image_name
+    - name: image_tag
+      in: path
+      value: $inputs.image_tag
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      scanStatus: $response.body#/scan_status
+      vulnerabilities: $response.body#/vulnerabilities
+    onSuccess:
+    - name: scanPending
+      type: goto
+      stepId: pollScan
+      criteria:
+      - context: $response.body
+        condition: $.scan_status == "pending" || $.scan_status == "in-progress"
+        type: jsonpath
+  outputs:
+    registryCount: $steps.listRegistries.outputs.count
+    scanStatus: $steps.pollScan.outputs.scanStatus
+    vulnerabilities: $steps.pollScan.outputs.vulnerabilities

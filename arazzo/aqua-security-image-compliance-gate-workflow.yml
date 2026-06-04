@@ -1,0 +1,160 @@
+arazzo: 1.0.1
+info:
+  title: Aqua Security Image Compliance Gate
+  summary: Authenticate, poll an image scan to completion, then branch on whether critical or high vulnerabilities were found to pass or fail a compliance gate.
+  description: >-
+    Implements a deployment compliance gate on top of Aqua image scanning. The
+    workflow logs in, polls the image detail endpoint until its scan reaches a
+    terminal state, and then branches on the per-severity vulnerability counts:
+    when critical or high vulnerabilities are present the gate fails, otherwise
+    it passes. This adapts the Aqua compliance theme onto the real image scan
+    and vulnerability operations the API exposes. Every step spells out its
+    request inline so the flow can be read and executed without opening the
+    underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: aquaSecurityApi
+  url: ../openapi/aqua-security-api.yaml
+  type: openapi
+workflows:
+- workflowId: image-compliance-gate
+  summary: Poll an image scan and pass or fail a gate based on critical and high vulnerability counts.
+  description: >-
+    Logs in, polls the image detail until the scan completes, then branches to a
+    pass or fail step based on whether critical or high vulnerabilities exist.
+  inputs:
+    type: object
+    required:
+    - id
+    - password
+    - registry
+    - image_name
+    - image_tag
+    properties:
+      id:
+        type: string
+        description: Aqua username or user ID used to authenticate.
+      password:
+        type: string
+        description: Aqua user password used to authenticate.
+      registry:
+        type: string
+        description: Registry name of the image to gate (e.g. docker-hub).
+      image_name:
+        type: string
+        description: Image repository name to gate (e.g. nginx).
+      image_tag:
+        type: string
+        description: Image tag to gate (e.g. latest).
+  steps:
+  - stepId: authenticate
+    description: >-
+      Authenticate the user and obtain a JWT bearer token for the scan calls.
+    operationId: login
+    requestBody:
+      contentType: application/json
+      payload:
+        id: $inputs.id
+        password: $inputs.password
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      token: $response.body#/token
+  - stepId: pollScan
+    description: >-
+      Read the image detail and loop until the scan reaches a terminal
+      completed or failed state, capturing the vulnerability counts.
+    operationId: getImage
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $steps.authenticate.outputs.token"
+    - name: registry
+      in: path
+      value: $inputs.registry
+    - name: image_name
+      in: path
+      value: $inputs.image_name
+    - name: image_tag
+      in: path
+      value: $inputs.image_tag
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      scanStatus: $response.body#/scan_status
+      critical: $response.body#/vulnerabilities/critical
+      high: $response.body#/vulnerabilities/high
+    onSuccess:
+    - name: scanPending
+      type: goto
+      stepId: pollScan
+      criteria:
+      - context: $response.body
+        condition: $.scan_status == "pending" || $.scan_status == "in-progress"
+        type: jsonpath
+    - name: gateFails
+      type: goto
+      stepId: gateFail
+      criteria:
+      - context: $response.body
+        condition: $.scan_status == "completed" && ($.vulnerabilities.critical > 0 || $.vulnerabilities.high > 0)
+        type: jsonpath
+    - name: gatePasses
+      type: goto
+      stepId: gatePass
+      criteria:
+      - context: $response.body
+        condition: $.scan_status == "completed" && $.vulnerabilities.critical == 0 && $.vulnerabilities.high == 0
+        type: jsonpath
+  - stepId: gateFail
+    description: >-
+      The image carries critical or high vulnerabilities. Re-read the image
+      detail to record the failing posture and end the workflow as failed.
+    operationId: getImage
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $steps.authenticate.outputs.token"
+    - name: registry
+      in: path
+      value: $inputs.registry
+    - name: image_name
+      in: path
+      value: $inputs.image_name
+    - name: image_tag
+      in: path
+      value: $inputs.image_tag
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      gateResult: $response.body#/scan_status
+      vulnerabilities: $response.body#/vulnerabilities
+    onSuccess:
+    - name: failed
+      type: end
+  - stepId: gatePass
+    description: >-
+      The image is free of critical and high vulnerabilities. Re-read the image
+      detail to record the passing posture.
+    operationId: getImage
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $steps.authenticate.outputs.token"
+    - name: registry
+      in: path
+      value: $inputs.registry
+    - name: image_name
+      in: path
+      value: $inputs.image_name
+    - name: image_tag
+      in: path
+      value: $inputs.image_tag
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      gateResult: $response.body#/scan_status
+      vulnerabilities: $response.body#/vulnerabilities
+  outputs:
+    failVulnerabilities: $steps.gateFail.outputs.vulnerabilities
+    passVulnerabilities: $steps.gatePass.outputs.vulnerabilities

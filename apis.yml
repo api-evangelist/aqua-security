@@ -90,6 +90,33 @@ apis:
   - type: GitHubRepository
     url: https://github.com/aquasecurity/tracee
 common:
+- type: ArazzoWorkflows
+  url: arazzo/
+  workflows:
+  - url: arazzo/aqua-security-create-assurance-policy-workflow.yml
+    name: Aqua Security Create Assurance Policy
+    summary: Authenticate, create an image assurance security policy, then list policies to confirm it was registered.
+  - url: arazzo/aqua-security-image-compliance-gate-workflow.yml
+    name: Aqua Security Image Compliance Gate
+    summary: Authenticate, poll an image scan to completion, then branch on whether critical or high vulnerabilities were found to pass or fail a compliance gate.
+  - url: arazzo/aqua-security-image-vulnerability-lookup-workflow.yml
+    name: Aqua Security Image Vulnerability Lookup
+    summary: Authenticate, list registered images filtered by registry and repository, then fetch full vulnerability detail for the first match.
+  - url: arazzo/aqua-security-onboard-registry-image-workflow.yml
+    name: Aqua Security Onboard Registry Image
+    summary: Authenticate, confirm the target registry is configured, register an image from it, then poll the scan to completion.
+  - url: arazzo/aqua-security-registry-inventory-workflow.yml
+    name: Aqua Security Registry Inventory
+    summary: Authenticate, list configured registries, then enumerate the images registered under the first connected registry.
+  - url: arazzo/aqua-security-rescan-and-cleanup-workflow.yml
+    name: Aqua Security Rescan And Cleanup
+    summary: Authenticate, re-register an image to trigger a fresh scan, poll until it completes, then delete the image when its scan failed.
+  - url: arazzo/aqua-security-running-container-inventory-workflow.yml
+    name: Aqua Security Running Container Inventory
+    summary: Authenticate, list running containers monitored by the enforcer, then read the image detail behind the first running container.
+  - url: arazzo/aqua-security-scan-image-on-demand-workflow.yml
+    name: Aqua Security Scan Image On Demand
+    summary: Authenticate, register a container image for scanning, then poll until the scan completes and read its vulnerability counts.
 - type: LinkedIn
   url: https://www.linkedin.com/company/aquasecteam
 - type: Portal

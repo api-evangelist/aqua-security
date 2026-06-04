@@ -1,0 +1,155 @@
+arazzo: 1.0.1
+info:
+  title: Aqua Security Rescan And Cleanup
+  summary: Authenticate, re-register an image to trigger a fresh scan, poll until it completes, then delete the image when its scan failed.
+  description: >-
+    Refreshes an image's scan and reaps it when the scan cannot complete. The
+    workflow logs in, re-registers the image to trigger a new scan, polls the
+    image detail until the scan reaches a terminal state, and then branches:
+    when the scan failed it deletes the image from the platform, and when it
+    completed it leaves the image in place and returns its vulnerability counts.
+    Every step spells out its request inline so the flow can be read and executed
+    without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: aquaSecurityApi
+  url: ../openapi/aqua-security-api.yaml
+  type: openapi
+workflows:
+- workflowId: rescan-and-cleanup
+  summary: Re-register an image, poll its scan, and delete it if the scan failed.
+  description: >-
+    Logs in, re-registers the image to trigger a fresh scan, polls until the
+    scan finishes, then deletes the image when the scan failed or returns its
+    vulnerabilities when it completed.
+  inputs:
+    type: object
+    required:
+    - id
+    - password
+    - registry
+    - image
+    - image_name
+    - image_tag
+    properties:
+      id:
+        type: string
+        description: Aqua username or user ID used to authenticate.
+      password:
+        type: string
+        description: Aqua user password used to authenticate.
+      registry:
+        type: string
+        description: Registry name holding the image (e.g. docker-hub).
+      image:
+        type: string
+        description: Full image name including tag to re-register (e.g. nginx:latest).
+      image_name:
+        type: string
+        description: Image repository name used to read and delete the image (e.g. nginx).
+      image_tag:
+        type: string
+        description: Image tag used to read and delete the image (e.g. latest).
+  steps:
+  - stepId: authenticate
+    description: >-
+      Authenticate the user and obtain a JWT bearer token for the scan and
+      cleanup calls.
+    operationId: login
+    requestBody:
+      contentType: application/json
+      payload:
+        id: $inputs.id
+        password: $inputs.password
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      token: $response.body#/token
+  - stepId: reRegisterImage
+    description: >-
+      Re-register the image to trigger a fresh vulnerability scan on the
+      platform.
+    operationId: registerImage
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $steps.authenticate.outputs.token"
+    requestBody:
+      contentType: application/json
+      payload:
+        registry: $inputs.registry
+        image: $inputs.image
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      scanStatus: $response.body#/scan_status
+  - stepId: pollScan
+    description: >-
+      Read the image detail and loop until the scan reaches a terminal
+      completed or failed state.
+    operationId: getImage
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $steps.authenticate.outputs.token"
+    - name: registry
+      in: path
+      value: $inputs.registry
+    - name: image_name
+      in: path
+      value: $inputs.image_name
+    - name: image_tag
+      in: path
+      value: $inputs.image_tag
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      scanStatus: $response.body#/scan_status
+      vulnerabilities: $response.body#/vulnerabilities
+    onSuccess:
+    - name: scanPending
+      type: goto
+      stepId: pollScan
+      criteria:
+      - context: $response.body
+        condition: $.scan_status == "pending" || $.scan_status == "in-progress"
+        type: jsonpath
+    - name: scanFailed
+      type: goto
+      stepId: deleteImage
+      criteria:
+      - context: $response.body
+        condition: $.scan_status == "failed"
+        type: jsonpath
+    - name: scanCompleted
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.scan_status == "completed"
+        type: jsonpath
+  - stepId: deleteImage
+    description: >-
+      The scan failed; remove the image from the Aqua platform to clean up the
+      inventory.
+    operationId: deleteImage
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $steps.authenticate.outputs.token"
+    - name: registry
+      in: path
+      value: $inputs.registry
+    - name: image_name
+      in: path
+      value: $inputs.image_name
+    - name: image_tag
+      in: path
+      value: $inputs.image_tag
+    successCriteria:
+    - condition: $statusCode == 204
+    outputs:
+      deletedStatus: $statusCode
+  outputs:
+    scanStatus: $steps.pollScan.outputs.scanStatus
+    vulnerabilities: $steps.pollScan.outputs.vulnerabilities
+    deletedStatus: $steps.deleteImage.outputs.deletedStatus

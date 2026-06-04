@@ -1,0 +1,113 @@
+arazzo: 1.0.1
+info:
+  title: Aqua Security Running Container Inventory
+  summary: Authenticate, list running containers monitored by the enforcer, then read the image detail behind the first running container.
+  description: >-
+    Inspects the live runtime estate Aqua's enforcers are watching. The workflow
+    logs in, lists running containers along with the host each runs on and the
+    policy applied to it, captures the first running container, and then reads
+    the detailed image record behind it to surface that workload's scan status
+    and vulnerability counts. Every step spells out its request inline so the
+    flow can be read and executed without opening the underlying OpenAPI
+    description.
+  version: 1.0.0
+sourceDescriptions:
+- name: aquaSecurityApi
+  url: ../openapi/aqua-security-api.yaml
+  type: openapi
+workflows:
+- workflowId: running-container-inventory
+  summary: List running containers and read the image vulnerability detail for the first one.
+  description: >-
+    Logs in, lists running containers with their host and applied policy, then
+    reads the image detail behind the first container for its vulnerability
+    posture.
+  inputs:
+    type: object
+    required:
+    - id
+    - password
+    - registry
+    - image_name
+    - image_tag
+    properties:
+      id:
+        type: string
+        description: Aqua username or user ID used to authenticate.
+      password:
+        type: string
+        description: Aqua user password used to authenticate.
+      registry:
+        type: string
+        description: Registry name of the image behind the container (e.g. docker-hub).
+      image_name:
+        type: string
+        description: Image repository name behind the container (e.g. nginx).
+      image_tag:
+        type: string
+        description: Image tag behind the container (e.g. latest).
+  steps:
+  - stepId: authenticate
+    description: >-
+      Authenticate the user and obtain a JWT bearer token for the container and
+      image calls.
+    operationId: login
+    requestBody:
+      contentType: application/json
+      payload:
+        id: $inputs.id
+        password: $inputs.password
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      token: $response.body#/token
+  - stepId: listRunningContainers
+    description: >-
+      List running containers monitored by the enforcer, capturing the host and
+      applied policy for the first running container.
+    operationId: listContainers
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $steps.authenticate.outputs.token"
+    - name: status
+      in: query
+      value: running
+    - name: pagesize
+      in: query
+      value: 50
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      count: $response.body#/count
+      firstContainerId: $response.body#/result/0/container_id
+      firstContainerImage: $response.body#/result/0/image
+      firstContainerPolicy: $response.body#/result/0/policy
+  - stepId: getImageBehindContainer
+    description: >-
+      Read the image detail behind the first running container to surface its
+      scan status and vulnerability counts.
+    operationId: getImage
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $steps.authenticate.outputs.token"
+    - name: registry
+      in: path
+      value: $inputs.registry
+    - name: image_name
+      in: path
+      value: $inputs.image_name
+    - name: image_tag
+      in: path
+      value: $inputs.image_tag
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      scanStatus: $response.body#/scan_status
+      vulnerabilities: $response.body#/vulnerabilities
+  outputs:
+    runningCount: $steps.listRunningContainers.outputs.count
+    firstContainerPolicy: $steps.listRunningContainers.outputs.firstContainerPolicy
+    scanStatus: $steps.getImageBehindContainer.outputs.scanStatus
+    vulnerabilities: $steps.getImageBehindContainer.outputs.vulnerabilities

@@ -1,0 +1,130 @@
+arazzo: 1.0.1
+info:
+  title: Aqua Security Scan Image On Demand
+  summary: Authenticate, register a container image for scanning, then poll until the scan completes and read its vulnerability counts.
+  description: >-
+    Drives the core Aqua Security image-scanning loop end to end. The workflow
+    logs in to obtain a JWT bearer token, registers a container image from a
+    configured registry so the platform begins scanning it, and then polls the
+    image detail endpoint, branching on scan_status until the scan reaches a
+    terminal state. When the scan completes it surfaces the per-severity
+    vulnerability counts so a caller can gate a build or deployment. Every step
+    spells out its request inline so the flow can be read and executed without
+    opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: aquaSecurityApi
+  url: ../openapi/aqua-security-api.yaml
+  type: openapi
+workflows:
+- workflowId: scan-image-on-demand
+  summary: Register a container image and poll its scan until vulnerabilities are available.
+  description: >-
+    Logs in, registers the supplied image for scanning, then polls the image
+    detail endpoint until scan_status is completed or failed and returns the
+    vulnerability breakdown.
+  inputs:
+    type: object
+    required:
+    - id
+    - password
+    - registry
+    - image
+    - image_name
+    - image_tag
+    properties:
+      id:
+        type: string
+        description: Aqua username or user ID used to authenticate.
+      password:
+        type: string
+        description: Aqua user password used to authenticate.
+      registry:
+        type: string
+        description: Name of the configured registry holding the image (e.g. docker-hub).
+      image:
+        type: string
+        description: Full image name including tag to register (e.g. nginx:latest).
+      image_name:
+        type: string
+        description: Image repository name used to read scan results (e.g. nginx).
+      image_tag:
+        type: string
+        description: Image tag used to read scan results (e.g. latest).
+  steps:
+  - stepId: authenticate
+    description: >-
+      Authenticate the user and obtain a JWT bearer token for the subsequent
+      image-scanning calls.
+    operationId: login
+    requestBody:
+      contentType: application/json
+      payload:
+        id: $inputs.id
+        password: $inputs.password
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      token: $response.body#/token
+  - stepId: registerImage
+    description: >-
+      Register the supplied image so the Aqua platform begins scanning it for
+      vulnerabilities and policy compliance.
+    operationId: registerImage
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $steps.authenticate.outputs.token"
+    requestBody:
+      contentType: application/json
+      payload:
+        registry: $inputs.registry
+        image: $inputs.image
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      registry: $response.body#/registry
+      name: $response.body#/name
+      scanStatus: $response.body#/scan_status
+  - stepId: pollScan
+    description: >-
+      Read the image detail and branch on scan_status, looping until the scan
+      reaches a terminal completed or failed state.
+    operationId: getImage
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $steps.authenticate.outputs.token"
+    - name: registry
+      in: path
+      value: $inputs.registry
+    - name: image_name
+      in: path
+      value: $inputs.image_name
+    - name: image_tag
+      in: path
+      value: $inputs.image_tag
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      scanStatus: $response.body#/scan_status
+      digest: $response.body#/digest
+      vulnerabilities: $response.body#/vulnerabilities
+    onSuccess:
+    - name: scanFinished
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.scan_status == "completed" || $.scan_status == "failed"
+        type: jsonpath
+    - name: scanPending
+      type: goto
+      stepId: pollScan
+      criteria:
+      - context: $response.body
+        condition: $.scan_status == "pending" || $.scan_status == "in-progress"
+        type: jsonpath
+  outputs:
+    scanStatus: $steps.pollScan.outputs.scanStatus
+    digest: $steps.pollScan.outputs.digest
+    vulnerabilities: $steps.pollScan.outputs.vulnerabilities

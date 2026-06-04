@@ -1,0 +1,91 @@
+arazzo: 1.0.1
+info:
+  title: Aqua Security Registry Inventory
+  summary: Authenticate, list configured registries, then enumerate the images registered under the first connected registry.
+  description: >-
+    Surveys a container registry and the images Aqua tracks beneath it. The
+    workflow logs in, lists the configured registries to find a connected one,
+    captures its name, and then lists the images filtered to that registry so a
+    caller can see the repositories and tags being scanned under it. Every step
+    spells out its request inline so the flow can be read and executed without
+    opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: aquaSecurityApi
+  url: ../openapi/aqua-security-api.yaml
+  type: openapi
+workflows:
+- workflowId: registry-inventory
+  summary: List registries and enumerate the images registered under the first one.
+  description: >-
+    Logs in, lists configured registries, captures the first registry name, and
+    lists the images scanned under that registry.
+  inputs:
+    type: object
+    required:
+    - id
+    - password
+    properties:
+      id:
+        type: string
+        description: Aqua username or user ID used to authenticate.
+      password:
+        type: string
+        description: Aqua user password used to authenticate.
+      pagesize:
+        type: integer
+        description: Number of image results to request per page.
+  steps:
+  - stepId: authenticate
+    description: >-
+      Authenticate the user and obtain a JWT bearer token for the registry and
+      image calls.
+    operationId: login
+    requestBody:
+      contentType: application/json
+      payload:
+        id: $inputs.id
+        password: $inputs.password
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      token: $response.body#/token
+  - stepId: listRegistries
+    description: >-
+      List all configured container registries and capture the first registry's
+      name and connection status.
+    operationId: listRegistries
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $steps.authenticate.outputs.token"
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      count: $response.body#/count
+      firstRegistryName: $response.body#/result/0/name
+      firstRegistryStatus: $response.body#/result/0/status
+  - stepId: listImagesForRegistry
+    description: >-
+      List the images Aqua has registered under the first registry so the caller
+      can see the repositories and tags scanned beneath it.
+    operationId: listImages
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $steps.authenticate.outputs.token"
+    - name: registry
+      in: query
+      value: $steps.listRegistries.outputs.firstRegistryName
+    - name: pagesize
+      in: query
+      value: $inputs.pagesize
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      imageCount: $response.body#/count
+      firstImageName: $response.body#/result/0/name
+  outputs:
+    registryCount: $steps.listRegistries.outputs.count
+    registryName: $steps.listRegistries.outputs.firstRegistryName
+    imageCount: $steps.listImagesForRegistry.outputs.imageCount

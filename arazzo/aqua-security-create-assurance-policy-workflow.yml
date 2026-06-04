@@ -1,0 +1,99 @@
+arazzo: 1.0.1
+info:
+  title: Aqua Security Create Assurance Policy
+  summary: Authenticate, create an image assurance security policy, then list policies to confirm it was registered.
+  description: >-
+    Stands up a new image assurance policy and verifies it landed. The workflow
+    logs in, creates a security policy with a maximum CVSS score and a
+    block-on-failure flag, and then lists all configured policies to confirm the
+    new policy is present. Every step spells out its request inline so the flow
+    can be read and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: aquaSecurityApi
+  url: ../openapi/aqua-security-api.yaml
+  type: openapi
+workflows:
+- workflowId: create-assurance-policy
+  summary: Create an image assurance policy and confirm it via the policy list.
+  description: >-
+    Logs in, creates a security policy with the supplied thresholds, and then
+    lists policies to confirm the new policy exists.
+  inputs:
+    type: object
+    required:
+    - id
+    - password
+    - name
+    properties:
+      id:
+        type: string
+        description: Aqua username or user ID used to authenticate.
+      password:
+        type: string
+        description: Aqua user password used to authenticate.
+      name:
+        type: string
+        description: Unique name for the new policy (e.g. high-security).
+      description:
+        type: string
+        description: Human-readable description of the policy.
+      block_failed:
+        type: boolean
+        description: Whether to block containers that fail policy evaluation.
+      maximum_score:
+        type: number
+        description: Maximum CVSS score threshold allowed by the policy (0-10).
+  steps:
+  - stepId: authenticate
+    description: >-
+      Authenticate the user and obtain a JWT bearer token for the policy calls.
+    operationId: login
+    requestBody:
+      contentType: application/json
+      payload:
+        id: $inputs.id
+        password: $inputs.password
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      token: $response.body#/token
+  - stepId: createPolicy
+    description: >-
+      Create the new image assurance policy with the supplied score threshold
+      and block-on-failure flag.
+    operationId: createPolicy
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $steps.authenticate.outputs.token"
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.name
+        description: $inputs.description
+        block_failed: $inputs.block_failed
+        maximum_score: $inputs.maximum_score
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      name: $response.body#/name
+      blockFailed: $response.body#/block_failed
+      maximumScore: $response.body#/maximum_score
+  - stepId: listPolicies
+    description: >-
+      List all configured security policies to confirm the newly created policy
+      is registered.
+    operationId: listPolicies
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $steps.authenticate.outputs.token"
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      count: $response.body#/count
+      firstPolicyName: $response.body#/result/0/name
+  outputs:
+    createdPolicyName: $steps.createPolicy.outputs.name
+    policyCount: $steps.listPolicies.outputs.count
