@@ -3,7 +3,7 @@ name: Aqua Security
 description: Aqua Security provides cloud-native security for the full application lifecycle, protecting containers, serverless
   functions, and cloud workloads with vulnerability scanning, runtime protection, and compliance enforcement.
 type: Index
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 tags:
 - Cloud Native
 - Containers
