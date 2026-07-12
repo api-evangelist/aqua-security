@@ -90,6 +90,12 @@ apis:
   - type: GitHubRepository
     url: https://github.com/aquasecurity/tracee
 common:
+- type: VulnerabilityDisclosure
+  url: security/aqua-security-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/aqua-security-domain-security.yml
+- type: Authentication
+  url: authentication/aqua-security-authentication.yml
 - type: Arazzo
   url: arazzo/aqua-security-create-assurance-policy-workflow.yml
   name: Aqua Security Create Assurance Policy
