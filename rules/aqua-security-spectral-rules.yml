@@ -1,283 +1,314 @@
+# aqua-security — Spectral ruleset (strengthened)
+# Plain Spectral. Existing hand-authored rules preserved; measured rules added
+# from this provider's own OpenAPI conventions by strengthen_ruleset.py,
+# then self-validated against the spec.
+#
+# Provenance:
+#   - servers-https-only: 100% of servers already https (error)
+#   - servers-expected-domain: 1/1 servers on aquasec.com
+#   - path-params-casing: snake @ 100% (n=6)
+#   - query-params-casing: snake @ 100% (n=8)
+#   - operationid-casing: camel @ 90% (n=10)
+#   - schema-names-casing: pascal @ 100% (n=17)
+#   - schema-properties-casing: snake @ 100% (n=52)
+#   - security: global (root) — NOT emitting operation-security-required
+#   - error-schema-defined: ErrorResponse
+#   - operation-documents-401: 100% adherence
+#   - pagination params observed: ['page']
+#   - merge: kept 30 existing, added 6 measured, upgraded 0
+#   - added: servers-expected-domain, query-params-casing, operationid-casing, schema-names-casing, schema-properties-casing, error-schema-defined
+extends:
+  - spectral:oas
 rules:
-
-  # INFO / METADATA
   info-title-required:
     description: Info object must have a title starting with "Aqua Security"
     severity: error
-    given: "$.info"
+    given: $.info
     then:
       field: title
       function: pattern
       functionOptions:
-        match: "^Aqua Security"
-
+        match: ^Aqua Security
   info-description-required:
     description: Info object must have a description with at least 50 characters
     severity: warn
-    given: "$.info"
+    given: $.info
     then:
       field: description
       function: truthy
-
   info-version-required:
     description: Info object must have a version
     severity: error
-    given: "$.info"
+    given: $.info
     then:
       field: version
       function: truthy
-
   info-contact-required:
     description: API should have contact information
     severity: warn
-    given: "$.info"
+    given: $.info
     then:
       field: contact
       function: truthy
-
-  # OPENAPI VERSION
   openapi-version-3:
     description: Use OpenAPI 3.0.x
     severity: error
-    given: "$"
+    given: $
     then:
       field: openapi
       function: pattern
       functionOptions:
-        match: "^3\\.0\\."
-
-  # SERVERS
+        match: ^3\.0\.
   servers-defined:
     description: Servers must be defined
     severity: error
-    given: "$"
+    given: $
     then:
       field: servers
       function: truthy
-
   servers-https-only:
     description: Server URLs should use HTTPS
     severity: warn
-    given: "$.servers[*]"
+    given: $.servers[*]
     then:
       field: url
       function: pattern
       functionOptions:
-        match: "^https://"
-
-  # PATHS - NAMING CONVENTIONS
+        match: ^https://
   paths-kebab-case:
     description: Path segments should use kebab-case
     severity: warn
-    given: "$.paths"
+    given: $.paths
     then:
-      field: "@key"
+      field: '@key'
       function: pattern
       functionOptions:
-        match: "^(\\/[a-z0-9][a-z0-9-]*[a-z0-9]?|\\{[a-z][a-zA-Z0-9_]*\\})*\\/?$"
-
+        match: ^(\/[a-z0-9][a-z0-9-]*[a-z0-9]?|\{[a-z][a-zA-Z0-9_]*\})*\/?$
   paths-no-trailing-slash:
     description: Paths should not have trailing slashes
     severity: warn
-    given: "$.paths"
+    given: $.paths
     then:
-      field: "@key"
+      field: '@key'
       function: pattern
       functionOptions:
-        notMatch: "\\/$"
-
-  # OPERATIONS
+        notMatch: \/$
   operation-summary-required:
     description: Every operation must have a summary
     severity: error
-    given: "$.paths[*][get,post,put,delete,patch]"
+    given: $.paths[*][get,post,put,delete,patch]
     then:
       field: summary
       function: truthy
-
   operation-summary-prefix:
     description: Operation summaries should start with "Aqua Security"
     severity: warn
-    given: "$.paths[*][get,post,put,delete,patch]"
+    given: $.paths[*][get,post,put,delete,patch]
     then:
       field: summary
       function: pattern
       functionOptions:
-        match: "^Aqua Security"
-
+        match: ^Aqua Security
   operation-description-required:
     description: Every operation should have a description
     severity: warn
-    given: "$.paths[*][get,post,put,delete,patch]"
+    given: $.paths[*][get,post,put,delete,patch]
     then:
       field: description
       function: truthy
-
   operation-id-required:
     description: Every operation must have an operationId
     severity: error
-    given: "$.paths[*][get,post,put,delete,patch]"
+    given: $.paths[*][get,post,put,delete,patch]
     then:
       field: operationId
       function: truthy
-
   operation-id-camel-case:
     description: OperationId should use camelCase
     severity: warn
-    given: "$.paths[*][get,post,put,delete,patch]"
+    given: $.paths[*][get,post,put,delete,patch]
     then:
       field: operationId
       function: pattern
       functionOptions:
-        match: "^[a-z][a-zA-Z0-9]*$"
-
+        match: ^[a-z][a-zA-Z0-9]*$
   operation-tags-required:
     description: Every operation must have at least one tag
     severity: error
-    given: "$.paths[*][get,post,put,delete,patch]"
+    given: $.paths[*][get,post,put,delete,patch]
     then:
       field: tags
       function: truthy
-
-  # PARAMETERS
   parameter-description-required:
     description: All parameters must have a description
     severity: warn
-    given: "$.paths[*][*].parameters[*]"
+    given: $.paths[*][*].parameters[*]
     then:
       field: description
       function: truthy
-
   parameter-snake-case:
     description: Parameter names should use snake_case or kebab-case
     severity: info
-    given: "$.paths[*][*].parameters[*]"
+    given: $.paths[*][*].parameters[*]
     then:
       field: name
       function: pattern
       functionOptions:
-        match: "^[a-z][a-z0-9_-]*$"
-
-  # REQUEST BODIES
+        match: ^[a-z][a-z0-9_-]*$
   request-body-content-type:
     description: Request bodies should use application/json
     severity: warn
-    given: "$.paths[*][post,put,patch].requestBody.content"
+    given: $.paths[*][post,put,patch].requestBody.content
     then:
-      field: "@key"
+      field: '@key'
       function: enumeration
       functionOptions:
         values:
-          - application/json
-          - multipart/form-data
-          - application/x-www-form-urlencoded
-
-  # RESPONSES
+        - application/json
+        - multipart/form-data
+        - application/x-www-form-urlencoded
   response-success-required:
     description: Every operation must have a success (2xx) response
     severity: error
-    given: "$.paths[*][get,post,put,delete,patch].responses"
+    given: $.paths[*][get,post,put,delete,patch].responses
     then:
       function: schema
       functionOptions:
         schema:
           type: object
           minProperties: 1
-
   response-401-required:
     description: Secured endpoints should document 401 responses
     severity: warn
-    given: "$.paths[*][get,post,put,delete,patch].responses"
+    given: $.paths[*][get,post,put,delete,patch].responses
     then:
-      field: "401"
+      field: '401'
       function: truthy
-
   response-description-required:
     description: All responses must have a description
     severity: error
-    given: "$.paths[*][*].responses[*]"
+    given: $.paths[*][*].responses[*]
     then:
       field: description
       function: truthy
-
-  # SCHEMAS
   schema-type-defined:
     description: Schema properties should have a type defined
     severity: warn
-    given: "$.components.schemas[*].properties[*]"
+    given: $.components.schemas[*].properties[*]
     then:
       function: schema
       functionOptions:
         schema:
           type: object
           anyOf:
-            - required: [type]
-            - required: [$ref]
-
+          - required:
+            - type
+          - required:
+            - $ref
   schema-description-recommended:
     description: Top-level schemas should have a description
     severity: info
-    given: "$.components.schemas[*]"
+    given: $.components.schemas[*]
     then:
       field: description
       function: truthy
-
-  # SECURITY
   security-schemes-defined:
     description: Security schemes must be defined in components
     severity: error
-    given: "$.components"
+    given: $.components
     then:
       field: securitySchemes
       function: truthy
-
   security-bearer-description:
     description: Bearer auth security scheme should have a description
     severity: warn
-    given: "$.components.securitySchemes[*]"
+    given: $.components.securitySchemes[*]
     then:
       field: description
       function: truthy
-
-  # HTTP METHOD CONVENTIONS
   get-no-request-body:
     description: GET operations should not have a request body
     severity: error
-    given: "$.paths[*].get"
+    given: $.paths[*].get
     then:
       field: requestBody
       function: falsy
-
   delete-no-request-body:
     description: DELETE operations should not have a request body
     severity: warn
-    given: "$.paths[*].delete"
+    given: $.paths[*].delete
     then:
       field: requestBody
       function: falsy
-
   delete-returns-204:
     description: DELETE operations should return 204
     severity: info
-    given: "$.paths[*].delete.responses"
+    given: $.paths[*].delete.responses
     then:
-      field: "204"
+      field: '204'
       function: truthy
-
-  # GENERAL QUALITY
   no-empty-descriptions:
     description: Descriptions should not be empty strings
     severity: error
-    given: "$..description"
+    given: $..description
     then:
       function: pattern
       functionOptions:
-        match: ".+"
-
+        match: .+
   tags-global-defined:
     description: Tags should be defined globally with descriptions
     severity: warn
-    given: "$"
+    given: $
     then:
       field: tags
+      function: truthy
+  servers-expected-domain:
+    description: Server URLs should be on the aquasec.com domain.
+    severity: warn
+    given: $.servers[*].url
+    then:
+      function: pattern
+      functionOptions:
+        match: aquasec\.com
+  query-params-casing:
+    description: Query parameters should be snake_case (the dominant convention in this API).
+    severity: warn
+    given: $.paths[*][get,post,put,patch,delete].parameters[?(@.in=='query')]
+    then:
+      field: name
+      function: casing
+      functionOptions:
+        type: snake
+  operationid-casing:
+    description: Operation IDs should be camelCase (the dominant convention in this API).
+    severity: warn
+    given: $.paths[*][get,post,put,patch,delete].operationId
+    then:
+      function: casing
+      functionOptions:
+        type: camel
+  schema-names-casing:
+    description: Component schema names should be PascalCase (the dominant convention in this API).
+    severity: warn
+    given: $.components.schemas
+    then:
+      field: '@key'
+      function: casing
+      functionOptions:
+        type: pascal
+  schema-properties-casing:
+    description: Schema properties should be snake_case (the dominant convention in this API).
+    severity: warn
+    given: $.components.schemas[*].properties
+    then:
+      field: '@key'
+      function: casing
+      functionOptions:
+        type: snake
+  error-schema-defined:
+    description: A shared error schema (ErrorResponse) should be defined for error payloads.
+    severity: warn
+    given: $.components.schemas
+    then:
+      field: ErrorResponse
       function: truthy
