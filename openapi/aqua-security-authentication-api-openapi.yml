@@ -1,0 +1,119 @@
+openapi: 3.0.3
+info:
+  title: Aqua Security REST Authentication API
+  description: The Aqua Security REST API provides programmatic access to manage images, containers, policies, users, registries, and runtime security configurations for the Aqua Cloud Native Security Platform.
+  version: '2022.4'
+  x-generated-from: documentation
+  contact:
+    name: Aqua Security Support
+    url: https://support.aquasec.com/
+  license:
+    name: Commercial
+    url: https://www.aquasec.com/aqua-cloud/terms-of-service/
+servers:
+- url: https://{tenant}.cloud.aquasec.com/api
+  description: Aqua Cloud SaaS
+  variables:
+    tenant:
+      description: Your Aqua tenant identifier
+      default: your-tenant
+- url: https://{host}:8080/api
+  description: Aqua self-hosted deployment
+  variables:
+    host:
+      description: Hostname or IP of your Aqua server
+      default: aqua-server
+security:
+- BearerAuth: []
+tags:
+- name: Authentication
+  description: User authentication and token management
+paths:
+  /v1/login:
+    post:
+      operationId: login
+      summary: Aqua Security Authenticate User
+      description: Authenticate a user and obtain an access token for subsequent API calls.
+      tags:
+      - Authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+            examples:
+              LoginRequestExample:
+                summary: Default login request
+                x-microcks-default: true
+                value:
+                  id: admin
+                  password: s3cur3P@ssw0rd
+      responses:
+        '200':
+          description: Authentication successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+              examples:
+                Login200Example:
+                  summary: Default login 200 response
+                  x-microcks-default: true
+                  value:
+                    token: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.abc123
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human-readable error description
+          example: Unauthorized access
+        code:
+          type: integer
+          description: Error code
+          example: 401
+    LoginResponse:
+      type: object
+      properties:
+        token:
+          type: string
+          description: JWT bearer token for subsequent API calls
+          example: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.abc123
+    LoginRequest:
+      type: object
+      required:
+      - id
+      - password
+      properties:
+        id:
+          type: string
+          description: Username or user ID
+          example: admin
+        password:
+          type: string
+          description: User password
+          example: s3cur3P@ssw0rd
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT token obtained from the /v1/login endpoint

@@ -1,0 +1,182 @@
+openapi: 3.0.3
+info:
+  title: Aqua Security REST Authentication Policies API
+  description: The Aqua Security REST API provides programmatic access to manage images, containers, policies, users, registries, and runtime security configurations for the Aqua Cloud Native Security Platform.
+  version: '2022.4'
+  x-generated-from: documentation
+  contact:
+    name: Aqua Security Support
+    url: https://support.aquasec.com/
+  license:
+    name: Commercial
+    url: https://www.aquasec.com/aqua-cloud/terms-of-service/
+servers:
+- url: https://{tenant}.cloud.aquasec.com/api
+  description: Aqua Cloud SaaS
+  variables:
+    tenant:
+      description: Your Aqua tenant identifier
+      default: your-tenant
+- url: https://{host}:8080/api
+  description: Aqua self-hosted deployment
+  variables:
+    host:
+      description: Hostname or IP of your Aqua server
+      default: aqua-server
+security:
+- BearerAuth: []
+tags:
+- name: Policies
+  description: Security policy management
+paths:
+  /v1/securitypolicies:
+    get:
+      operationId: listPolicies
+      summary: Aqua Security List Security Policies
+      description: List all configured security image assurance policies.
+      tags:
+      - Policies
+      responses:
+        '200':
+          description: List of security policies
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PolicyList'
+              examples:
+                ListPolicies200Example:
+                  summary: Default listPolicies 200 response
+                  x-microcks-default: true
+                  value:
+                    count: 2
+                    result:
+                    - name: default
+                      description: Default security policy
+                      block_failed: true
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - BearerAuth: []
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createPolicy
+      summary: Aqua Security Create Security Policy
+      description: Create a new image assurance security policy.
+      tags:
+      - Policies
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PolicyRequest'
+            examples:
+              CreatePolicyRequestExample:
+                summary: Default createPolicy request
+                x-microcks-default: true
+                value:
+                  name: high-security
+                  description: Policy blocking high severity vulnerabilities
+                  block_failed: true
+                  maximum_score: 7.0
+      responses:
+        '200':
+          description: Policy created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Policy'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - BearerAuth: []
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    PolicyRequest:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Policy name (unique)
+          example: high-security
+        description:
+          type: string
+          description: Policy description
+          example: Policy blocking high severity vulnerabilities
+        block_failed:
+          type: boolean
+          description: Block containers failing policy
+          example: true
+        maximum_score:
+          type: number
+          description: Maximum CVSS score threshold
+          example: 7.0
+    Policy:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Policy name
+          example: default
+        description:
+          type: string
+          description: Policy description
+          example: Default security policy
+        block_failed:
+          type: boolean
+          description: Whether to block containers that fail policy evaluation
+          example: true
+        maximum_score:
+          type: number
+          format: float
+          description: Maximum CVSS score allowed (0-10)
+          example: 7.0
+    PolicyList:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: Total number of policies
+          example: 5
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/Policy'
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human-readable error description
+          example: Unauthorized access
+        code:
+          type: integer
+          description: Error code
+          example: 401
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT token obtained from the /v1/login endpoint

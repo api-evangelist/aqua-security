@@ -1,0 +1,153 @@
+openapi: 3.0.3
+info:
+  title: Aqua Security REST Authentication Containers API
+  description: The Aqua Security REST API provides programmatic access to manage images, containers, policies, users, registries, and runtime security configurations for the Aqua Cloud Native Security Platform.
+  version: '2022.4'
+  x-generated-from: documentation
+  contact:
+    name: Aqua Security Support
+    url: https://support.aquasec.com/
+  license:
+    name: Commercial
+    url: https://www.aquasec.com/aqua-cloud/terms-of-service/
+servers:
+- url: https://{tenant}.cloud.aquasec.com/api
+  description: Aqua Cloud SaaS
+  variables:
+    tenant:
+      description: Your Aqua tenant identifier
+      default: your-tenant
+- url: https://{host}:8080/api
+  description: Aqua self-hosted deployment
+  variables:
+    host:
+      description: Hostname or IP of your Aqua server
+      default: aqua-server
+security:
+- BearerAuth: []
+tags:
+- name: Containers
+  description: Running container monitoring and enforcement
+paths:
+  /v1/containers:
+    get:
+      operationId: listContainers
+      summary: Aqua Security List Containers
+      description: List all running containers monitored by the Aqua enforcement agent.
+      tags:
+      - Containers
+      parameters:
+      - name: status
+        in: query
+        description: Filter by container status
+        schema:
+          type: string
+          enum:
+          - running
+          - stopped
+          - all
+        example: running
+      - name: page
+        in: query
+        description: Page number for pagination
+        schema:
+          type: integer
+          default: 1
+        example: 1
+      - name: pagesize
+        in: query
+        description: Number of results per page
+        schema:
+          type: integer
+          default: 50
+        example: 50
+      responses:
+        '200':
+          description: List of containers
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContainerList'
+              examples:
+                ListContainers200Example:
+                  summary: Default listContainers 200 response
+                  x-microcks-default: true
+                  value:
+                    count: 1
+                    result:
+                    - container_id: abc123def456
+                      image: nginx:latest
+                      status: running
+                      policy: default
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - BearerAuth: []
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human-readable error description
+          example: Unauthorized access
+        code:
+          type: integer
+          description: Error code
+          example: 401
+    Container:
+      type: object
+      properties:
+        container_id:
+          type: string
+          description: Container ID
+          example: abc123def456
+        name:
+          type: string
+          description: Container name
+          example: web-server-1
+        image:
+          type: string
+          description: Image name and tag
+          example: nginx:latest
+        status:
+          type: string
+          description: Container runtime status
+          enum:
+          - running
+          - stopped
+          - paused
+          example: running
+        policy:
+          type: string
+          description: Applied security policy name
+          example: default
+        host:
+          type: string
+          description: Host running the container
+          example: kube-node-01
+    ContainerList:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: Total number of containers
+          example: 50
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/Container'
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT token obtained from the /v1/login endpoint

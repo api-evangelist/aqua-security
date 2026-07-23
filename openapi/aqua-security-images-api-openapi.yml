@@ -1,0 +1,388 @@
+openapi: 3.0.3
+info:
+  title: Aqua Security REST Authentication Images API
+  description: The Aqua Security REST API provides programmatic access to manage images, containers, policies, users, registries, and runtime security configurations for the Aqua Cloud Native Security Platform.
+  version: '2022.4'
+  x-generated-from: documentation
+  contact:
+    name: Aqua Security Support
+    url: https://support.aquasec.com/
+  license:
+    name: Commercial
+    url: https://www.aquasec.com/aqua-cloud/terms-of-service/
+servers:
+- url: https://{tenant}.cloud.aquasec.com/api
+  description: Aqua Cloud SaaS
+  variables:
+    tenant:
+      description: Your Aqua tenant identifier
+      default: your-tenant
+- url: https://{host}:8080/api
+  description: Aqua self-hosted deployment
+  variables:
+    host:
+      description: Hostname or IP of your Aqua server
+      default: aqua-server
+security:
+- BearerAuth: []
+tags:
+- name: Images
+  description: Container image scanning and vulnerability management
+paths:
+  /v1/images:
+    get:
+      operationId: listImages
+      summary: Aqua Security List Images
+      description: List all container images registered in the Aqua platform.
+      tags:
+      - Images
+      parameters:
+      - name: registry
+        in: query
+        description: Filter images by registry name
+        schema:
+          type: string
+        example: docker-hub
+      - name: repository
+        in: query
+        description: Filter images by repository name
+        schema:
+          type: string
+        example: nginx
+      - name: tag
+        in: query
+        description: Filter images by tag
+        schema:
+          type: string
+        example: latest
+      - name: page
+        in: query
+        description: Page number for pagination
+        schema:
+          type: integer
+          default: 1
+        example: 1
+      - name: pagesize
+        in: query
+        description: Number of results per page
+        schema:
+          type: integer
+          default: 50
+          maximum: 1000
+        example: 50
+      responses:
+        '200':
+          description: List of images
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageList'
+              examples:
+                ListImages200Example:
+                  summary: Default listImages 200 response
+                  x-microcks-default: true
+                  value:
+                    count: 2
+                    result:
+                    - registry: docker-hub
+                      name: nginx:latest
+                      vulnerabilities:
+                        critical: 0
+                        high: 3
+                        medium: 12
+                        low: 24
+                      scan_status: completed
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - BearerAuth: []
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: registerImage
+      summary: Aqua Security Register Image
+      description: Register a container image for scanning and policy enforcement.
+      tags:
+      - Images
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ImageRequest'
+            examples:
+              RegisterImageRequestExample:
+                summary: Default registerImage request
+                x-microcks-default: true
+                value:
+                  registry: docker-hub
+                  image: nginx:latest
+      responses:
+        '200':
+          description: Image registered successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Image'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - BearerAuth: []
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /v1/images/{registry}/{image_name}/{image_tag}:
+    get:
+      operationId: getImage
+      summary: Aqua Security Get Image Details
+      description: Get detailed information and vulnerability data for a specific container image.
+      tags:
+      - Images
+      parameters:
+      - name: registry
+        in: path
+        required: true
+        description: Registry name
+        schema:
+          type: string
+        example: docker-hub
+      - name: image_name
+        in: path
+        required: true
+        description: Image repository name
+        schema:
+          type: string
+        example: nginx
+      - name: image_tag
+        in: path
+        required: true
+        description: Image tag
+        schema:
+          type: string
+        example: latest
+      responses:
+        '200':
+          description: Image details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageDetail'
+              examples:
+                GetImage200Example:
+                  summary: Default getImage 200 response
+                  x-microcks-default: true
+                  value:
+                    registry: docker-hub
+                    name: nginx
+                    tag: latest
+                    digest: sha256:a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2
+                    scan_status: completed
+                    vulnerabilities:
+                      critical: 0
+                      high: 3
+                      medium: 12
+                      low: 24
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Image not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - BearerAuth: []
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    delete:
+      operationId: deleteImage
+      summary: Aqua Security Delete Image
+      description: Remove a container image from the Aqua platform.
+      tags:
+      - Images
+      parameters:
+      - name: registry
+        in: path
+        required: true
+        description: Registry name
+        schema:
+          type: string
+        example: docker-hub
+      - name: image_name
+        in: path
+        required: true
+        description: Image repository name
+        schema:
+          type: string
+        example: nginx
+      - name: image_tag
+        in: path
+        required: true
+        description: Image tag
+        schema:
+          type: string
+        example: latest
+      responses:
+        '204':
+          description: Image deleted successfully
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Image not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - BearerAuth: []
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    ImageRequest:
+      type: object
+      required:
+      - registry
+      - image
+      properties:
+        registry:
+          type: string
+          description: Name of the configured registry
+          example: docker-hub
+        image:
+          type: string
+          description: Full image name including tag
+          example: nginx:latest
+    ImageList:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: Total number of images
+          example: 100
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/Image'
+    Image:
+      type: object
+      properties:
+        registry:
+          type: string
+          description: Name of the container registry
+          example: docker-hub
+        name:
+          type: string
+          description: Image repository name
+          example: nginx
+        tag:
+          type: string
+          description: Image tag
+          example: latest
+        digest:
+          type: string
+          description: Image content digest (SHA256)
+          example: sha256:a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2
+        scan_status:
+          type: string
+          description: Current scan status
+          enum:
+          - pending
+          - in-progress
+          - completed
+          - failed
+          example: completed
+        vulnerabilities:
+          $ref: '#/components/schemas/VulnerabilityCounts'
+        disallowed:
+          type: boolean
+          description: Whether the image is blocked by policy
+          example: false
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human-readable error description
+          example: Unauthorized access
+        code:
+          type: integer
+          description: Error code
+          example: 401
+    VulnerabilityCounts:
+      type: object
+      properties:
+        critical:
+          type: integer
+          description: Number of critical severity vulnerabilities
+          example: 0
+        high:
+          type: integer
+          description: Number of high severity vulnerabilities
+          example: 3
+        medium:
+          type: integer
+          description: Number of medium severity vulnerabilities
+          example: 12
+        low:
+          type: integer
+          description: Number of low severity vulnerabilities
+          example: 24
+        negligible:
+          type: integer
+          description: Number of negligible severity vulnerabilities
+          example: 5
+    ImageDetail:
+      allOf:
+      - $ref: '#/components/schemas/Image'
+      - type: object
+        properties:
+          os:
+            type: string
+            description: Operating system of the image
+            example: debian:bullseye-slim
+          size:
+            type: integer
+            description: Image size in bytes
+            example: 142000000
+          created:
+            type: string
+            format: date-time
+            description: Image creation timestamp
+            example: '2025-03-15T14:30:00Z'
+          scan_date:
+            type: string
+            format: date-time
+            description: Date the image was last scanned
+            example: '2026-04-18T10:00:00Z'
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT token obtained from the /v1/login endpoint

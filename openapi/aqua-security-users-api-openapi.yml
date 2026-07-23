@@ -1,0 +1,123 @@
+openapi: 3.0.3
+info:
+  title: Aqua Security REST Authentication Users API
+  description: The Aqua Security REST API provides programmatic access to manage images, containers, policies, users, registries, and runtime security configurations for the Aqua Cloud Native Security Platform.
+  version: '2022.4'
+  x-generated-from: documentation
+  contact:
+    name: Aqua Security Support
+    url: https://support.aquasec.com/
+  license:
+    name: Commercial
+    url: https://www.aquasec.com/aqua-cloud/terms-of-service/
+servers:
+- url: https://{tenant}.cloud.aquasec.com/api
+  description: Aqua Cloud SaaS
+  variables:
+    tenant:
+      description: Your Aqua tenant identifier
+      default: your-tenant
+- url: https://{host}:8080/api
+  description: Aqua self-hosted deployment
+  variables:
+    host:
+      description: Hostname or IP of your Aqua server
+      default: aqua-server
+security:
+- BearerAuth: []
+tags:
+- name: Users
+  description: User and role management
+paths:
+  /v1/users:
+    get:
+      operationId: listUsers
+      summary: Aqua Security List Users
+      description: List all users configured in the Aqua platform.
+      tags:
+      - Users
+      responses:
+        '200':
+          description: List of users
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserList'
+              examples:
+                ListUsers200Example:
+                  summary: Default listUsers 200 response
+                  x-microcks-default: true
+                  value:
+                    count: 1
+                    result:
+                    - id: admin
+                      name: Administrator
+                      role: administrator
+                      email: admin@example.com
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - BearerAuth: []
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          description: User login ID
+          example: admin
+        name:
+          type: string
+          description: User display name
+          example: Administrator
+        role:
+          type: string
+          description: User role
+          enum:
+          - administrator
+          - auditor
+          - scanner
+          - image_assurance
+          - runtime_policy
+          example: administrator
+        email:
+          type: string
+          format: email
+          description: User email address
+          example: admin@example.com
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human-readable error description
+          example: Unauthorized access
+        code:
+          type: integer
+          description: Error code
+          example: 401
+    UserList:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: Total number of users
+          example: 10
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT token obtained from the /v1/login endpoint

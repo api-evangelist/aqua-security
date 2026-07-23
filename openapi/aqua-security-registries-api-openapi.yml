@@ -1,0 +1,132 @@
+openapi: 3.0.3
+info:
+  title: Aqua Security REST Authentication Registries API
+  description: The Aqua Security REST API provides programmatic access to manage images, containers, policies, users, registries, and runtime security configurations for the Aqua Cloud Native Security Platform.
+  version: '2022.4'
+  x-generated-from: documentation
+  contact:
+    name: Aqua Security Support
+    url: https://support.aquasec.com/
+  license:
+    name: Commercial
+    url: https://www.aquasec.com/aqua-cloud/terms-of-service/
+servers:
+- url: https://{tenant}.cloud.aquasec.com/api
+  description: Aqua Cloud SaaS
+  variables:
+    tenant:
+      description: Your Aqua tenant identifier
+      default: your-tenant
+- url: https://{host}:8080/api
+  description: Aqua self-hosted deployment
+  variables:
+    host:
+      description: Hostname or IP of your Aqua server
+      default: aqua-server
+security:
+- BearerAuth: []
+tags:
+- name: Registries
+  description: Container registry configuration
+paths:
+  /v1/registries:
+    get:
+      operationId: listRegistries
+      summary: Aqua Security List Registries
+      description: List all configured container registries.
+      tags:
+      - Registries
+      responses:
+        '200':
+          description: List of registries
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegistryList'
+              examples:
+                ListRegistries200Example:
+                  summary: Default listRegistries 200 response
+                  x-microcks-default: true
+                  value:
+                    count: 1
+                    result:
+                    - name: docker-hub
+                      type: HUB
+                      url: https://index.docker.io
+                      status: connected
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - BearerAuth: []
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human-readable error description
+          example: Unauthorized access
+        code:
+          type: integer
+          description: Error code
+          example: 401
+    RegistryList:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: Total number of registries
+          example: 3
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/Registry'
+    Registry:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Registry display name
+          example: docker-hub
+        type:
+          type: string
+          description: Registry type
+          enum:
+          - HUB
+          - V2
+          - ECR
+          - ACR
+          - GCR
+          - JFrog
+          - Harbor
+          example: HUB
+        url:
+          type: string
+          description: Registry URL
+          example: https://index.docker.io
+        username:
+          type: string
+          description: Authentication username
+          example: myuser
+        status:
+          type: string
+          description: Connection status
+          enum:
+          - connected
+          - disconnected
+          - error
+          example: connected
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT token obtained from the /v1/login endpoint
