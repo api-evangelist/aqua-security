@@ -3,7 +3,20 @@ name: Aqua Security
 description: Aqua Security provides cloud-native security for the full application lifecycle, protecting containers, serverless
   functions, and cloud workloads with vulnerability scanning, runtime protection, and compliance enforcement.
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: enterprise
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Enterprise · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/aqua-security.png
 tags:
 - Cloud Native
 - Containers
@@ -16,49 +29,11 @@ created: '2026-03-26'
 modified: '2026-05-19'
 specificationVersion: '0.19'
 apis:
-- aid: aqua-security:aqua-security
-  name: Aqua Security
-  description: Aqua Security provides cloud-native security for the full application lifecycle, protecting containers, serverless
-    functions, and cloud workloads with vulnerability scanning, runtime protection, and compliance enforcement.
-  humanURL: https://www.aquasec.com/
-  tags:
-  - Cloud Native Security
-  - Container Security
-  - Kubernetes
-  - Runtime Protection
-  - Security
-  - Vulnerability Scanning
-  - CSPM
-  - DevSecOps
-  properties:
-  - type: Documentation
-    url: https://docs.aquasec.com/
-  - type: GettingStarted
-    url: https://docs.aquasec.com/docs/getting-started
-  - type: APIReference
-    url: https://docs.aquasec.com/reference/api-overview
-  - type: Authentication
-    url: https://docs.aquasec.com/reference/authentication
-  - type: OpenAPI
-    url: https://raw.githubusercontent.com/api-evangelist/aqua-security/refs/heads/main/openapi/aqua-security-api.yaml
-  - type: JSONSchema
-    url: https://raw.githubusercontent.com/api-evangelist/aqua-security/refs/heads/main/json-schema/aqua-security-api-container-list-schema.json
-  - type: X-NaftikoCapability
-    url: capabilities/aqua-security-authentication.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/aqua-security-containers.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/aqua-security-images.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/aqua-security-policies.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/aqua-security-registries.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/aqua-security-users.yaml
 - aid: aqua-security:trivy
   name: Trivy
-  description: Trivy is a comprehensive open source security scanner for containers, Kubernetes, code repositories, clouds,
-    and more — finding vulnerabilities, misconfigurations, secrets, and SBOMs.
+  description: >-
+    Trivy is a comprehensive open source security scanner for containers, Kubernetes, code repositories,
+    clouds, and more — finding vulnerabilities, misconfigurations, secrets, and SBOMs.
   humanURL: https://trivy.dev/
   tags:
   - Container Scanning
@@ -75,8 +50,9 @@ apis:
     url: https://github.com/aquasecurity/trivy
 - aid: aqua-security:tracee
   name: Tracee
-  description: Tracee is a runtime security and forensics tool for Linux that uses eBPF technology to trace system events
-    and detect suspicious behavioral patterns.
+  description: >-
+    Tracee is a runtime security and forensics tool for Linux that uses eBPF technology to trace system
+    events and detect suspicious behavioral patterns.
   humanURL: https://aquasecurity.github.io/tracee/
   tags:
   - eBPF
@@ -89,7 +65,201 @@ apis:
     url: https://aquasecurity.github.io/tracee/
   - type: GitHubRepository
     url: https://github.com/aquasecurity/tracee
+- aid: aqua-security:aqua-security-authentication-api
+  name: Aqua Security Authentication API
+  description: User authentication and token management
+  humanURL: https://www.aquasec.com/
+  tags:
+  - Authentication
+  properties:
+  - type: OpenAPI
+    url: openapi/aqua-security-authentication-api-openapi.yml
+  - type: Documentation
+    url: https://docs.aquasec.com/
+  - type: GettingStarted
+    url: https://docs.aquasec.com/docs/getting-started
+  - type: APIReference
+    url: https://docs.aquasec.com/reference/api-overview
+  - type: Authentication
+    url: https://docs.aquasec.com/reference/authentication
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/aqua-security/refs/heads/main/json-schema/aqua-security-api-container-list-schema.json
+  - type: X-NaftikoCapability
+    url: capabilities/aqua-security-authentication.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/aqua-security-containers.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/aqua-security-images.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/aqua-security-policies.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/aqua-security-registries.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/aqua-security-users.yaml
+- aid: aqua-security:aqua-security-containers-api
+  name: Aqua Security Containers API
+  description: Running container monitoring and enforcement
+  humanURL: https://www.aquasec.com/
+  tags:
+  - Containers
+  properties:
+  - type: OpenAPI
+    url: openapi/aqua-security-containers-api-openapi.yml
+  - type: Documentation
+    url: https://docs.aquasec.com/
+  - type: GettingStarted
+    url: https://docs.aquasec.com/docs/getting-started
+  - type: APIReference
+    url: https://docs.aquasec.com/reference/api-overview
+  - type: Authentication
+    url: https://docs.aquasec.com/reference/authentication
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/aqua-security/refs/heads/main/json-schema/aqua-security-api-container-list-schema.json
+  - type: X-NaftikoCapability
+    url: capabilities/aqua-security-authentication.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/aqua-security-containers.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/aqua-security-images.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/aqua-security-policies.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/aqua-security-registries.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/aqua-security-users.yaml
+- aid: aqua-security:aqua-security-images-api
+  name: Aqua Security Images API
+  description: Container image scanning and vulnerability management
+  humanURL: https://www.aquasec.com/
+  tags:
+  - Images
+  properties:
+  - type: OpenAPI
+    url: openapi/aqua-security-images-api-openapi.yml
+  - type: Documentation
+    url: https://docs.aquasec.com/
+  - type: GettingStarted
+    url: https://docs.aquasec.com/docs/getting-started
+  - type: APIReference
+    url: https://docs.aquasec.com/reference/api-overview
+  - type: Authentication
+    url: https://docs.aquasec.com/reference/authentication
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/aqua-security/refs/heads/main/json-schema/aqua-security-api-container-list-schema.json
+  - type: X-NaftikoCapability
+    url: capabilities/aqua-security-authentication.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/aqua-security-containers.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/aqua-security-images.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/aqua-security-policies.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/aqua-security-registries.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/aqua-security-users.yaml
+- aid: aqua-security:aqua-security-policies-api
+  name: Aqua Security Policies API
+  description: Security policy management
+  humanURL: https://www.aquasec.com/
+  tags:
+  - Policies
+  properties:
+  - type: OpenAPI
+    url: openapi/aqua-security-policies-api-openapi.yml
+  - type: Documentation
+    url: https://docs.aquasec.com/
+  - type: GettingStarted
+    url: https://docs.aquasec.com/docs/getting-started
+  - type: APIReference
+    url: https://docs.aquasec.com/reference/api-overview
+  - type: Authentication
+    url: https://docs.aquasec.com/reference/authentication
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/aqua-security/refs/heads/main/json-schema/aqua-security-api-container-list-schema.json
+  - type: X-NaftikoCapability
+    url: capabilities/aqua-security-authentication.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/aqua-security-containers.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/aqua-security-images.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/aqua-security-policies.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/aqua-security-registries.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/aqua-security-users.yaml
+- aid: aqua-security:aqua-security-registries-api
+  name: Aqua Security Registries API
+  description: Container registry configuration
+  humanURL: https://www.aquasec.com/
+  tags:
+  - Registries
+  properties:
+  - type: OpenAPI
+    url: openapi/aqua-security-registries-api-openapi.yml
+  - type: Documentation
+    url: https://docs.aquasec.com/
+  - type: GettingStarted
+    url: https://docs.aquasec.com/docs/getting-started
+  - type: APIReference
+    url: https://docs.aquasec.com/reference/api-overview
+  - type: Authentication
+    url: https://docs.aquasec.com/reference/authentication
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/aqua-security/refs/heads/main/json-schema/aqua-security-api-container-list-schema.json
+  - type: X-NaftikoCapability
+    url: capabilities/aqua-security-authentication.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/aqua-security-containers.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/aqua-security-images.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/aqua-security-policies.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/aqua-security-registries.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/aqua-security-users.yaml
+- aid: aqua-security:aqua-security-users-api
+  name: Aqua Security Users API
+  description: User and role management
+  humanURL: https://www.aquasec.com/
+  tags:
+  - Users
+  properties:
+  - type: OpenAPI
+    url: openapi/aqua-security-users-api-openapi.yml
+  - type: Documentation
+    url: https://docs.aquasec.com/
+  - type: GettingStarted
+    url: https://docs.aquasec.com/docs/getting-started
+  - type: APIReference
+    url: https://docs.aquasec.com/reference/api-overview
+  - type: Authentication
+    url: https://docs.aquasec.com/reference/authentication
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/aqua-security/refs/heads/main/json-schema/aqua-security-api-container-list-schema.json
+  - type: X-NaftikoCapability
+    url: capabilities/aqua-security-authentication.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/aqua-security-containers.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/aqua-security-images.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/aqua-security-policies.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/aqua-security-registries.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/aqua-security-users.yaml
 common:
+- type: PostmanWorkspace
+  url: https://www.postman.com/kinlaneapi/aqua-security/overview
 - type: AgenticAccess
   url: agentic-access/aqua-security-agentic-access.yml
 - type: VulnerabilityDisclosure
