@@ -1,0 +1,269 @@
+{
+  "info": {
+    "_postman_id": "f2752163-42b8-44b4-88d7-5eac0a5bd5a3",
+    "name": "Aqua Security REST Authentication API",
+    "description": "The Aqua Security REST API provides programmatic access to manage images, containers, policies, users, registries, and runtime security configurations for the Aqua Cloud Native Security Platform.\n\nContact Support:\n Name: Aqua Security Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:03:47.000Z",
+    "updatedAt": "2026-07-28T01:03:48.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-f2752163-42b8-44b4-88d7-5eac0a5bd5a3"
+  },
+  "item": [
+    {
+      "name": "v1",
+      "item": [
+        {
+          "name": "login",
+          "item": [
+            {
+              "name": "Aqua Security Authenticate User",
+              "id": "c4264e77-8c77-43e1-9379-72320e344e1a",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<string>\",\n  \"password\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v1/login",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v1",
+                    "login"
+                  ]
+                },
+                "description": "Authenticate a user and obtain an access token for subsequent API calls."
+              },
+              "response": [
+                {
+                  "id": "b67b8d15-28e8-463b-a3ce-668494fdfce8",
+                  "name": "Authentication successful",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"id\": \"<string>\",\n  \"password\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/login",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "login"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"token\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T01:03:48.000Z",
+                  "updatedAt": "2026-07-28T01:03:48.000Z",
+                  "uid": "35240-b67b8d15-28e8-463b-a3ce-668494fdfce8"
+                },
+                {
+                  "id": "c48c73f4-3887-44fe-aea1-cc4d36bc4220",
+                  "name": "Bad request",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"id\": \"<string>\",\n  \"password\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/login",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "login"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"code\": \"<integer>\"\n}",
+                  "createdAt": "2026-07-28T01:03:48.000Z",
+                  "updatedAt": "2026-07-28T01:03:48.000Z",
+                  "uid": "35240-c48c73f4-3887-44fe-aea1-cc4d36bc4220"
+                },
+                {
+                  "id": "c77fb406-663e-4020-bfe8-b263d9e6160d",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"id\": \"<string>\",\n  \"password\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/login",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "login"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"code\": \"<integer>\"\n}",
+                  "createdAt": "2026-07-28T01:03:48.000Z",
+                  "updatedAt": "2026-07-28T01:03:48.000Z",
+                  "uid": "35240-c77fb406-663e-4020-bfe8-b263d9e6160d"
+                }
+              ],
+              "createdAt": "2026-07-28T01:03:48.000Z",
+              "updatedAt": "2026-07-28T01:03:48.000Z",
+              "uid": "35240-c4264e77-8c77-43e1-9379-72320e344e1a"
+            }
+          ],
+          "id": "f3580736-ed73-469f-9549-35809989b683",
+          "createdAt": "2026-07-28T01:03:48.000Z",
+          "updatedAt": "2026-07-28T01:03:48.000Z",
+          "uid": "35240-f3580736-ed73-469f-9549-35809989b683"
+        }
+      ],
+      "id": "b5b6c03c-56fa-48ba-85aa-64039c7bd53a",
+      "createdAt": "2026-07-28T01:03:48.000Z",
+      "updatedAt": "2026-07-28T01:03:48.000Z",
+      "uid": "35240-b5b6c03c-56fa-48ba-85aa-64039c7bd53a"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "tenant",
+      "value": "your-tenant"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{tenant}}.cloud.aquasec.com/api"
+    }
+  ]
+}

@@ -1,0 +1,407 @@
+{
+  "info": {
+    "_postman_id": "12328f6a-bd14-4c19-a6cd-dc2a3a16c4b2",
+    "name": "Aqua Security REST Authentication Policies API",
+    "description": "The Aqua Security REST API provides programmatic access to manage images, containers, policies, users, registries, and runtime security configurations for the Aqua Cloud Native Security Platform.\n\nContact Support:\n Name: Aqua Security Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:03:51.000Z",
+    "updatedAt": "2026-07-28T01:03:51.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-12328f6a-bd14-4c19-a6cd-dc2a3a16c4b2"
+  },
+  "item": [
+    {
+      "name": "v1",
+      "item": [
+        {
+          "name": "securitypolicies",
+          "item": [
+            {
+              "name": "Aqua Security List Security Policies",
+              "id": "31125ae9-8464-44f0-80ae-f86a4df1deb7",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{bearerToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/v1/securitypolicies",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v1",
+                    "securitypolicies"
+                  ]
+                },
+                "description": "List all configured security image assurance policies."
+              },
+              "response": [
+                {
+                  "id": "7dd98057-681f-4328-b498-b907765804b2",
+                  "name": "List of security policies",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/securitypolicies",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "securitypolicies"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"count\": \"<integer>\",\n  \"result\": [\n    {\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"block_failed\": \"<boolean>\",\n      \"maximum_score\": \"<float>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"block_failed\": \"<boolean>\",\n      \"maximum_score\": \"<float>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T01:03:52.000Z",
+                  "updatedAt": "2026-07-28T01:03:52.000Z",
+                  "uid": "35240-7dd98057-681f-4328-b498-b907765804b2"
+                },
+                {
+                  "id": "5cd30b42-6fc8-4f30-b413-f3d8698b9e7b",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/securitypolicies",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "securitypolicies"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"code\": \"<integer>\"\n}",
+                  "createdAt": "2026-07-28T01:03:52.000Z",
+                  "updatedAt": "2026-07-28T01:03:52.000Z",
+                  "uid": "35240-5cd30b42-6fc8-4f30-b413-f3d8698b9e7b"
+                }
+              ],
+              "createdAt": "2026-07-28T01:03:51.000Z",
+              "updatedAt": "2026-07-28T01:03:51.000Z",
+              "uid": "35240-31125ae9-8464-44f0-80ae-f86a4df1deb7"
+            },
+            {
+              "name": "Aqua Security Create Security Policy",
+              "id": "17f82ced-6322-48c5-9863-372df2d73ef6",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{bearerToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"block_failed\": \"<boolean>\",\n  \"maximum_score\": \"<number>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v1/securitypolicies",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v1",
+                    "securitypolicies"
+                  ]
+                },
+                "description": "Create a new image assurance security policy."
+              },
+              "response": [
+                {
+                  "id": "44b5e205-3fb8-44a3-bd70-957b49d98fdc",
+                  "name": "Policy created",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"block_failed\": \"<boolean>\",\n  \"maximum_score\": \"<number>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/securitypolicies",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "securitypolicies"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"block_failed\": \"<boolean>\",\n  \"maximum_score\": \"<float>\"\n}",
+                  "createdAt": "2026-07-28T01:03:52.000Z",
+                  "updatedAt": "2026-07-28T01:03:52.000Z",
+                  "uid": "35240-44b5e205-3fb8-44a3-bd70-957b49d98fdc"
+                },
+                {
+                  "id": "d9ae654a-1743-4da2-8310-9187c9800f27",
+                  "name": "Bad request",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"block_failed\": \"<boolean>\",\n  \"maximum_score\": \"<number>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/securitypolicies",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "securitypolicies"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"code\": \"<integer>\"\n}",
+                  "createdAt": "2026-07-28T01:03:52.000Z",
+                  "updatedAt": "2026-07-28T01:03:52.000Z",
+                  "uid": "35240-d9ae654a-1743-4da2-8310-9187c9800f27"
+                },
+                {
+                  "id": "dc3e4037-54ca-4196-8360-d301d6915086",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"block_failed\": \"<boolean>\",\n  \"maximum_score\": \"<number>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/securitypolicies",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "securitypolicies"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"code\": \"<integer>\"\n}",
+                  "createdAt": "2026-07-28T01:03:52.000Z",
+                  "updatedAt": "2026-07-28T01:03:52.000Z",
+                  "uid": "35240-dc3e4037-54ca-4196-8360-d301d6915086"
+                }
+              ],
+              "createdAt": "2026-07-28T01:03:51.000Z",
+              "updatedAt": "2026-07-28T01:03:51.000Z",
+              "uid": "35240-17f82ced-6322-48c5-9863-372df2d73ef6"
+            }
+          ],
+          "id": "c87e7908-0dba-4e82-90d3-3fbfd9bb6c01",
+          "createdAt": "2026-07-28T01:03:51.000Z",
+          "updatedAt": "2026-07-28T01:03:51.000Z",
+          "uid": "35240-c87e7908-0dba-4e82-90d3-3fbfd9bb6c01"
+        }
+      ],
+      "id": "d96dd0f4-ba50-459d-9830-2e11f613c7d9",
+      "createdAt": "2026-07-28T01:03:51.000Z",
+      "updatedAt": "2026-07-28T01:03:51.000Z",
+      "uid": "35240-d96dd0f4-ba50-459d-9830-2e11f613c7d9"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "tenant",
+      "value": "your-tenant"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{tenant}}.cloud.aquasec.com/api"
+    }
+  ]
+}

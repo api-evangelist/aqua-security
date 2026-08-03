@@ -1,0 +1,180 @@
+{
+  "info": {
+    "_postman_id": "ed5de1bb-4174-48a3-8637-385b9f72d952",
+    "name": "Aqua Security REST Authentication Registries API",
+    "description": "The Aqua Security REST API provides programmatic access to manage images, containers, policies, users, registries, and runtime security configurations for the Aqua Cloud Native Security Platform.\n\nContact Support:\n Name: Aqua Security Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:03:52.000Z",
+    "updatedAt": "2026-07-28T01:03:52.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-ed5de1bb-4174-48a3-8637-385b9f72d952"
+  },
+  "item": [
+    {
+      "name": "v1",
+      "item": [
+        {
+          "name": "registries",
+          "item": [
+            {
+              "name": "Aqua Security List Registries",
+              "id": "b6b67662-5f59-4d4d-a752-033904de17f2",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{bearerToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/v1/registries",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v1",
+                    "registries"
+                  ]
+                },
+                "description": "List all configured container registries."
+              },
+              "response": [
+                {
+                  "id": "229e25e2-dfd5-4ae9-ae75-00e0fe2bd58c",
+                  "name": "List of registries",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/registries",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "registries"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"count\": \"<integer>\",\n  \"result\": [\n    {\n      \"name\": \"<string>\",\n      \"type\": \"GCR\",\n      \"url\": \"<string>\",\n      \"username\": \"<string>\",\n      \"status\": \"error\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"type\": \"HUB\",\n      \"url\": \"<string>\",\n      \"username\": \"<string>\",\n      \"status\": \"connected\"\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T01:03:52.000Z",
+                  "updatedAt": "2026-07-28T01:03:52.000Z",
+                  "uid": "35240-229e25e2-dfd5-4ae9-ae75-00e0fe2bd58c"
+                },
+                {
+                  "id": "07871e72-9f07-438a-864a-2303b2f57bec",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/registries",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "registries"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"code\": \"<integer>\"\n}",
+                  "createdAt": "2026-07-28T01:03:52.000Z",
+                  "updatedAt": "2026-07-28T01:03:52.000Z",
+                  "uid": "35240-07871e72-9f07-438a-864a-2303b2f57bec"
+                }
+              ],
+              "createdAt": "2026-07-28T01:03:52.000Z",
+              "updatedAt": "2026-07-28T01:03:52.000Z",
+              "uid": "35240-b6b67662-5f59-4d4d-a752-033904de17f2"
+            }
+          ],
+          "id": "fc5ec4b4-9ce9-495d-acb0-0849543efa60",
+          "createdAt": "2026-07-28T01:03:52.000Z",
+          "updatedAt": "2026-07-28T01:03:52.000Z",
+          "uid": "35240-fc5ec4b4-9ce9-495d-acb0-0849543efa60"
+        }
+      ],
+      "id": "a3c7aae1-34d2-4cea-a600-a27fdfeb2723",
+      "createdAt": "2026-07-28T01:03:52.000Z",
+      "updatedAt": "2026-07-28T01:03:52.000Z",
+      "uid": "35240-a3c7aae1-34d2-4cea-a600-a27fdfeb2723"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "tenant",
+      "value": "your-tenant"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{tenant}}.cloud.aquasec.com/api"
+    }
+  ]
+}

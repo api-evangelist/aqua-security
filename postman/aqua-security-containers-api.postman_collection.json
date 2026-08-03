@@ -1,0 +1,231 @@
+{
+  "info": {
+    "_postman_id": "333fd314-4c10-4689-88a8-cd96eb4316bd",
+    "name": "Aqua Security REST Authentication Containers API",
+    "description": "The Aqua Security REST API provides programmatic access to manage images, containers, policies, users, registries, and runtime security configurations for the Aqua Cloud Native Security Platform.\n\nContact Support:\n Name: Aqua Security Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:03:48.000Z",
+    "updatedAt": "2026-07-28T01:03:49.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-333fd314-4c10-4689-88a8-cd96eb4316bd"
+  },
+  "item": [
+    {
+      "name": "v1",
+      "item": [
+        {
+          "name": "containers",
+          "item": [
+            {
+              "name": "Aqua Security List Containers",
+              "id": "a0e0cb93-1c34-460a-8fba-a5236fb41cf1",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{bearerToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/v1/containers?status=running&page=1&pagesize=50",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v1",
+                    "containers"
+                  ],
+                  "query": [
+                    {
+                      "description": "Filter by container status",
+                      "key": "status",
+                      "value": "running"
+                    },
+                    {
+                      "description": "Page number for pagination",
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "description": "Number of results per page",
+                      "key": "pagesize",
+                      "value": "50"
+                    }
+                  ]
+                },
+                "description": "List all running containers monitored by the Aqua enforcement agent."
+              },
+              "response": [
+                {
+                  "id": "b555e9d2-290a-4c14-a8d2-22614c819429",
+                  "name": "List of containers",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/containers?status=running&page=1&pagesize=50",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "containers"
+                      ],
+                      "query": [
+                        {
+                          "description": "Filter by container status",
+                          "key": "status",
+                          "value": "running"
+                        },
+                        {
+                          "description": "Page number for pagination",
+                          "key": "page",
+                          "value": "1"
+                        },
+                        {
+                          "description": "Number of results per page",
+                          "key": "pagesize",
+                          "value": "50"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"count\": \"<integer>\",\n  \"result\": [\n    {\n      \"container_id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"image\": \"<string>\",\n      \"status\": \"running\",\n      \"policy\": \"<string>\",\n      \"host\": \"<string>\"\n    },\n    {\n      \"container_id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"image\": \"<string>\",\n      \"status\": \"running\",\n      \"policy\": \"<string>\",\n      \"host\": \"<string>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T01:03:49.000Z",
+                  "updatedAt": "2026-07-28T01:03:49.000Z",
+                  "uid": "35240-b555e9d2-290a-4c14-a8d2-22614c819429"
+                },
+                {
+                  "id": "3acf4bee-8e5f-4e0c-be1e-a5d1b344fd92",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/containers?status=running&page=1&pagesize=50",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "containers"
+                      ],
+                      "query": [
+                        {
+                          "description": "Filter by container status",
+                          "key": "status",
+                          "value": "running"
+                        },
+                        {
+                          "description": "Page number for pagination",
+                          "key": "page",
+                          "value": "1"
+                        },
+                        {
+                          "description": "Number of results per page",
+                          "key": "pagesize",
+                          "value": "50"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"code\": \"<integer>\"\n}",
+                  "createdAt": "2026-07-28T01:03:49.000Z",
+                  "updatedAt": "2026-07-28T01:03:49.000Z",
+                  "uid": "35240-3acf4bee-8e5f-4e0c-be1e-a5d1b344fd92"
+                }
+              ],
+              "createdAt": "2026-07-28T01:03:49.000Z",
+              "updatedAt": "2026-07-28T01:03:49.000Z",
+              "uid": "35240-a0e0cb93-1c34-460a-8fba-a5236fb41cf1"
+            }
+          ],
+          "id": "94c22e67-77a2-4505-a64d-ed17a5b5d1ca",
+          "createdAt": "2026-07-28T01:03:49.000Z",
+          "updatedAt": "2026-07-28T01:03:49.000Z",
+          "uid": "35240-94c22e67-77a2-4505-a64d-ed17a5b5d1ca"
+        }
+      ],
+      "id": "7d908c7b-cdc6-42df-8bb2-efba9014aa9b",
+      "createdAt": "2026-07-28T01:03:49.000Z",
+      "updatedAt": "2026-07-28T01:03:49.000Z",
+      "uid": "35240-7d908c7b-cdc6-42df-8bb2-efba9014aa9b"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "tenant",
+      "value": "your-tenant"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{tenant}}.cloud.aquasec.com/api"
+    }
+  ]
+}

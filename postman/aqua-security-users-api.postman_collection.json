@@ -1,0 +1,180 @@
+{
+  "info": {
+    "_postman_id": "9cd6da80-e28c-4a93-afa2-b53b8d4030a4",
+    "name": "Aqua Security REST Authentication Users API",
+    "description": "The Aqua Security REST API provides programmatic access to manage images, containers, policies, users, registries, and runtime security configurations for the Aqua Cloud Native Security Platform.\n\nContact Support:\n Name: Aqua Security Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:03:53.000Z",
+    "updatedAt": "2026-07-28T01:03:53.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-9cd6da80-e28c-4a93-afa2-b53b8d4030a4"
+  },
+  "item": [
+    {
+      "name": "v1",
+      "item": [
+        {
+          "name": "users",
+          "item": [
+            {
+              "name": "Aqua Security List Users",
+              "id": "66702caf-5a99-4bf6-9e83-a3466d6509bd",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{bearerToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/v1/users",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v1",
+                    "users"
+                  ]
+                },
+                "description": "List all users configured in the Aqua platform."
+              },
+              "response": [
+                {
+                  "id": "4e7d4e6a-ff2c-4693-a92a-a47fe77e347e",
+                  "name": "List of users",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/users",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "users"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"count\": \"<integer>\",\n  \"result\": [\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"role\": \"auditor\",\n      \"email\": \"<email>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"name\": \"<string>\",\n      \"role\": \"scanner\",\n      \"email\": \"<email>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T01:03:53.000Z",
+                  "updatedAt": "2026-07-28T01:03:53.000Z",
+                  "uid": "35240-4e7d4e6a-ff2c-4693-a92a-a47fe77e347e"
+                },
+                {
+                  "id": "6631ee5e-9ad3-4e57-8460-388d848197e7",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/users",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "users"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"code\": \"<integer>\"\n}",
+                  "createdAt": "2026-07-28T01:03:53.000Z",
+                  "updatedAt": "2026-07-28T01:03:53.000Z",
+                  "uid": "35240-6631ee5e-9ad3-4e57-8460-388d848197e7"
+                }
+              ],
+              "createdAt": "2026-07-28T01:03:53.000Z",
+              "updatedAt": "2026-07-28T01:03:53.000Z",
+              "uid": "35240-66702caf-5a99-4bf6-9e83-a3466d6509bd"
+            }
+          ],
+          "id": "eb6e4d7e-dac3-40dd-85ee-8a769aca4a9c",
+          "createdAt": "2026-07-28T01:03:53.000Z",
+          "updatedAt": "2026-07-28T01:03:53.000Z",
+          "uid": "35240-eb6e4d7e-dac3-40dd-85ee-8a769aca4a9c"
+        }
+      ],
+      "id": "89869c0b-c727-4c25-bc13-6d0a59590140",
+      "createdAt": "2026-07-28T01:03:53.000Z",
+      "updatedAt": "2026-07-28T01:03:53.000Z",
+      "uid": "35240-89869c0b-c727-4c25-bc13-6d0a59590140"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "tenant",
+      "value": "your-tenant"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{tenant}}.cloud.aquasec.com/api"
+    }
+  ]
+}

@@ -1,0 +1,978 @@
+{
+  "info": {
+    "_postman_id": "a6f61341-ae78-4d4d-9091-4c1143543143",
+    "name": "Aqua Security REST Authentication Images API",
+    "description": "The Aqua Security REST API provides programmatic access to manage images, containers, policies, users, registries, and runtime security configurations for the Aqua Cloud Native Security Platform.\n\nContact Support:\n Name: Aqua Security Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:03:50.000Z",
+    "updatedAt": "2026-07-28T01:03:50.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-a6f61341-ae78-4d4d-9091-4c1143543143"
+  },
+  "item": [
+    {
+      "name": "v1",
+      "item": [
+        {
+          "name": "images",
+          "item": [
+            {
+              "name": "{registry}",
+              "item": [
+                {
+                  "name": "{image_name}",
+                  "item": [
+                    {
+                      "name": "{image_tag}",
+                      "item": [
+                        {
+                          "name": "Aqua Security Get Image Details",
+                          "id": "3518323b-c2bf-483a-9e10-92e4e3fb5abc",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "auth": {
+                              "type": "bearer",
+                              "bearer": [
+                                {
+                                  "key": "token",
+                                  "value": "{{bearerToken}}",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/images/:registry/:image_name/:image_tag",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "images",
+                                ":registry",
+                                ":image_name",
+                                ":image_tag"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "a09af307-bcf6-4ab7-bc93-95d6e0932a00",
+                                  "key": "registry",
+                                  "value": "<string>",
+                                  "description": "(Required) Registry name"
+                                },
+                                {
+                                  "id": "941e014b-99b2-43d3-a08c-f4c4eac0b704",
+                                  "key": "image_name",
+                                  "value": "<string>",
+                                  "description": "(Required) Image repository name"
+                                },
+                                {
+                                  "id": "72faaa92-1de4-4610-8d1f-21a54c398927",
+                                  "key": "image_tag",
+                                  "value": "<string>",
+                                  "description": "(Required) Image tag"
+                                }
+                              ]
+                            },
+                            "description": "Get detailed information and vulnerability data for a specific container image."
+                          },
+                          "response": [
+                            {
+                              "id": "92f253db-a8a1-44a1-a0e5-2e7ad7f964de",
+                              "name": "Image details",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/v1/images/:registry/:image_name/:image_tag",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v1",
+                                    "images",
+                                    ":registry",
+                                    ":image_name",
+                                    ":image_tag"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "registry"
+                                    },
+                                    {
+                                      "key": "image_name"
+                                    },
+                                    {
+                                      "key": "image_tag"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"registry\": \"<string>\",\n  \"name\": \"<string>\",\n  \"tag\": \"<string>\",\n  \"digest\": \"<string>\",\n  \"scan_status\": \"completed\",\n  \"vulnerabilities\": {\n    \"critical\": \"<integer>\",\n    \"high\": \"<integer>\",\n    \"medium\": \"<integer>\",\n    \"low\": \"<integer>\",\n    \"negligible\": \"<integer>\"\n  },\n  \"disallowed\": \"<boolean>\",\n  \"os\": \"<string>\",\n  \"size\": \"<integer>\",\n  \"created\": \"<dateTime>\",\n  \"scan_date\": \"<dateTime>\"\n}",
+                              "createdAt": "2026-07-28T01:03:50.000Z",
+                              "updatedAt": "2026-07-28T01:03:50.000Z",
+                              "uid": "35240-92f253db-a8a1-44a1-a0e5-2e7ad7f964de"
+                            },
+                            {
+                              "id": "71a4669d-0401-4e17-9edb-cf68c643b29f",
+                              "name": "Unauthorized",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/v1/images/:registry/:image_name/:image_tag",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v1",
+                                    "images",
+                                    ":registry",
+                                    ":image_name",
+                                    ":image_tag"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "registry"
+                                    },
+                                    {
+                                      "key": "image_name"
+                                    },
+                                    {
+                                      "key": "image_tag"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"message\": \"<string>\",\n  \"code\": \"<integer>\"\n}",
+                              "createdAt": "2026-07-28T01:03:50.000Z",
+                              "updatedAt": "2026-07-28T01:03:50.000Z",
+                              "uid": "35240-71a4669d-0401-4e17-9edb-cf68c643b29f"
+                            },
+                            {
+                              "id": "35e39a18-7186-4e94-b32d-e3e8e60bb0ba",
+                              "name": "Image not found",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/v1/images/:registry/:image_name/:image_tag",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v1",
+                                    "images",
+                                    ":registry",
+                                    ":image_name",
+                                    ":image_tag"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "registry"
+                                    },
+                                    {
+                                      "key": "image_name"
+                                    },
+                                    {
+                                      "key": "image_tag"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"message\": \"<string>\",\n  \"code\": \"<integer>\"\n}",
+                              "createdAt": "2026-07-28T01:03:50.000Z",
+                              "updatedAt": "2026-07-28T01:03:50.000Z",
+                              "uid": "35240-35e39a18-7186-4e94-b32d-e3e8e60bb0ba"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T01:03:50.000Z",
+                          "updatedAt": "2026-07-28T01:03:50.000Z",
+                          "uid": "35240-3518323b-c2bf-483a-9e10-92e4e3fb5abc"
+                        },
+                        {
+                          "name": "Aqua Security Delete Image",
+                          "id": "cf0f84b9-2307-4baa-9b54-22ecebfa77a5",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "auth": {
+                              "type": "bearer",
+                              "bearer": [
+                                {
+                                  "key": "token",
+                                  "value": "{{bearerToken}}",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/images/:registry/:image_name/:image_tag",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "images",
+                                ":registry",
+                                ":image_name",
+                                ":image_tag"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "7f86c362-8f59-4079-abfa-7baf6dc4313a",
+                                  "key": "registry",
+                                  "value": "<string>",
+                                  "description": "(Required) Registry name"
+                                },
+                                {
+                                  "id": "44615395-f01e-4aee-b3a9-7873187fb3df",
+                                  "key": "image_name",
+                                  "value": "<string>",
+                                  "description": "(Required) Image repository name"
+                                },
+                                {
+                                  "id": "18a36abb-58f1-46c6-8bdd-1a83311848f1",
+                                  "key": "image_tag",
+                                  "value": "<string>",
+                                  "description": "(Required) Image tag"
+                                }
+                              ]
+                            },
+                            "description": "Remove a container image from the Aqua platform."
+                          },
+                          "response": [
+                            {
+                              "id": "2aaa7b09-7e6f-4566-8fd2-605c8153c5b0",
+                              "name": "Image deleted successfully",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/v1/images/:registry/:image_name/:image_tag",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v1",
+                                    "images",
+                                    ":registry",
+                                    ":image_name",
+                                    ":image_tag"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "registry"
+                                    },
+                                    {
+                                      "key": "image_name"
+                                    },
+                                    {
+                                      "key": "image_tag"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "No Content",
+                              "code": 204,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": null,
+                              "createdAt": "2026-07-28T01:03:50.000Z",
+                              "updatedAt": "2026-07-28T01:03:50.000Z",
+                              "uid": "35240-2aaa7b09-7e6f-4566-8fd2-605c8153c5b0"
+                            },
+                            {
+                              "id": "a60716ca-4c09-490a-930e-622647d6492e",
+                              "name": "Unauthorized",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/v1/images/:registry/:image_name/:image_tag",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v1",
+                                    "images",
+                                    ":registry",
+                                    ":image_name",
+                                    ":image_tag"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "registry"
+                                    },
+                                    {
+                                      "key": "image_name"
+                                    },
+                                    {
+                                      "key": "image_tag"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"message\": \"<string>\",\n  \"code\": \"<integer>\"\n}",
+                              "createdAt": "2026-07-28T01:03:50.000Z",
+                              "updatedAt": "2026-07-28T01:03:50.000Z",
+                              "uid": "35240-a60716ca-4c09-490a-930e-622647d6492e"
+                            },
+                            {
+                              "id": "4e7abc9b-8514-4e07-8d77-d767e0b10013",
+                              "name": "Image not found",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/v1/images/:registry/:image_name/:image_tag",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v1",
+                                    "images",
+                                    ":registry",
+                                    ":image_name",
+                                    ":image_tag"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "registry"
+                                    },
+                                    {
+                                      "key": "image_name"
+                                    },
+                                    {
+                                      "key": "image_tag"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"message\": \"<string>\",\n  \"code\": \"<integer>\"\n}",
+                              "createdAt": "2026-07-28T01:03:50.000Z",
+                              "updatedAt": "2026-07-28T01:03:50.000Z",
+                              "uid": "35240-4e7abc9b-8514-4e07-8d77-d767e0b10013"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T01:03:50.000Z",
+                          "updatedAt": "2026-07-28T01:03:50.000Z",
+                          "uid": "35240-cf0f84b9-2307-4baa-9b54-22ecebfa77a5"
+                        }
+                      ],
+                      "id": "6eaa299c-0f83-41c6-8df9-34eb17cdd1a6",
+                      "createdAt": "2026-07-28T01:03:50.000Z",
+                      "updatedAt": "2026-07-28T01:03:50.000Z",
+                      "uid": "35240-6eaa299c-0f83-41c6-8df9-34eb17cdd1a6"
+                    }
+                  ],
+                  "id": "9f14c1de-4202-4c39-a25a-a9cdda0173e2",
+                  "createdAt": "2026-07-28T01:03:50.000Z",
+                  "updatedAt": "2026-07-28T01:03:50.000Z",
+                  "uid": "35240-9f14c1de-4202-4c39-a25a-a9cdda0173e2"
+                }
+              ],
+              "id": "72b09fdc-1ec3-4abd-a23a-915a94655ef8",
+              "createdAt": "2026-07-28T01:03:50.000Z",
+              "updatedAt": "2026-07-28T01:03:50.000Z",
+              "uid": "35240-72b09fdc-1ec3-4abd-a23a-915a94655ef8"
+            },
+            {
+              "name": "Aqua Security List Images",
+              "id": "d30a1c53-5e04-4c21-84cf-e703017afe00",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{bearerToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/v1/images?registry=<string>&repository=<string>&tag=<string>&page=1&pagesize=50",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v1",
+                    "images"
+                  ],
+                  "query": [
+                    {
+                      "description": "Filter images by registry name",
+                      "key": "registry",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter images by repository name",
+                      "key": "repository",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter images by tag",
+                      "key": "tag",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Page number for pagination",
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "description": "Number of results per page",
+                      "key": "pagesize",
+                      "value": "50"
+                    }
+                  ]
+                },
+                "description": "List all container images registered in the Aqua platform."
+              },
+              "response": [
+                {
+                  "id": "9ef2c188-9af6-4a13-8807-a387f8245221",
+                  "name": "List of images",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/images?registry=<string>&repository=<string>&tag=<string>&page=1&pagesize=50",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "images"
+                      ],
+                      "query": [
+                        {
+                          "description": "Filter images by registry name",
+                          "key": "registry",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Filter images by repository name",
+                          "key": "repository",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Filter images by tag",
+                          "key": "tag",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Page number for pagination",
+                          "key": "page",
+                          "value": "1"
+                        },
+                        {
+                          "description": "Number of results per page",
+                          "key": "pagesize",
+                          "value": "50"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"count\": \"<integer>\",\n  \"result\": [\n    {\n      \"registry\": \"<string>\",\n      \"name\": \"<string>\",\n      \"tag\": \"<string>\",\n      \"digest\": \"<string>\",\n      \"scan_status\": \"failed\",\n      \"vulnerabilities\": {\n        \"critical\": \"<integer>\",\n        \"high\": \"<integer>\",\n        \"medium\": \"<integer>\",\n        \"low\": \"<integer>\",\n        \"negligible\": \"<integer>\"\n      },\n      \"disallowed\": \"<boolean>\"\n    },\n    {\n      \"registry\": \"<string>\",\n      \"name\": \"<string>\",\n      \"tag\": \"<string>\",\n      \"digest\": \"<string>\",\n      \"scan_status\": \"completed\",\n      \"vulnerabilities\": {\n        \"critical\": \"<integer>\",\n        \"high\": \"<integer>\",\n        \"medium\": \"<integer>\",\n        \"low\": \"<integer>\",\n        \"negligible\": \"<integer>\"\n      },\n      \"disallowed\": \"<boolean>\"\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T01:03:50.000Z",
+                  "updatedAt": "2026-07-28T01:03:50.000Z",
+                  "uid": "35240-9ef2c188-9af6-4a13-8807-a387f8245221"
+                },
+                {
+                  "id": "590076b2-1ab3-48cd-b411-da6c72e47417",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/images?registry=<string>&repository=<string>&tag=<string>&page=1&pagesize=50",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "images"
+                      ],
+                      "query": [
+                        {
+                          "description": "Filter images by registry name",
+                          "key": "registry",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Filter images by repository name",
+                          "key": "repository",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Filter images by tag",
+                          "key": "tag",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Page number for pagination",
+                          "key": "page",
+                          "value": "1"
+                        },
+                        {
+                          "description": "Number of results per page",
+                          "key": "pagesize",
+                          "value": "50"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"code\": \"<integer>\"\n}",
+                  "createdAt": "2026-07-28T01:03:50.000Z",
+                  "updatedAt": "2026-07-28T01:03:50.000Z",
+                  "uid": "35240-590076b2-1ab3-48cd-b411-da6c72e47417"
+                }
+              ],
+              "createdAt": "2026-07-28T01:03:50.000Z",
+              "updatedAt": "2026-07-28T01:03:50.000Z",
+              "uid": "35240-d30a1c53-5e04-4c21-84cf-e703017afe00"
+            },
+            {
+              "name": "Aqua Security Register Image",
+              "id": "a465bdeb-8220-4d7f-a535-c23f8750e031",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{bearerToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"registry\": \"<string>\",\n  \"image\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v1/images",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v1",
+                    "images"
+                  ]
+                },
+                "description": "Register a container image for scanning and policy enforcement."
+              },
+              "response": [
+                {
+                  "id": "b2029c8a-2ddc-471d-8a0f-014064fe8600",
+                  "name": "Image registered successfully",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"registry\": \"<string>\",\n  \"image\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/images",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "images"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"registry\": \"<string>\",\n  \"name\": \"<string>\",\n  \"tag\": \"<string>\",\n  \"digest\": \"<string>\",\n  \"scan_status\": \"pending\",\n  \"vulnerabilities\": {\n    \"critical\": \"<integer>\",\n    \"high\": \"<integer>\",\n    \"medium\": \"<integer>\",\n    \"low\": \"<integer>\",\n    \"negligible\": \"<integer>\"\n  },\n  \"disallowed\": \"<boolean>\"\n}",
+                  "createdAt": "2026-07-28T01:03:50.000Z",
+                  "updatedAt": "2026-07-28T01:03:50.000Z",
+                  "uid": "35240-b2029c8a-2ddc-471d-8a0f-014064fe8600"
+                },
+                {
+                  "id": "0b6430bd-ebcf-4240-8d25-d1349b440424",
+                  "name": "Bad request",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"registry\": \"<string>\",\n  \"image\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/images",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "images"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"code\": \"<integer>\"\n}",
+                  "createdAt": "2026-07-28T01:03:50.000Z",
+                  "updatedAt": "2026-07-28T01:03:50.000Z",
+                  "uid": "35240-0b6430bd-ebcf-4240-8d25-d1349b440424"
+                },
+                {
+                  "id": "eab8ba99-940b-4143-9e00-7d3967b492f1",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"registry\": \"<string>\",\n  \"image\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/images",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "images"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"message\": \"<string>\",\n  \"code\": \"<integer>\"\n}",
+                  "createdAt": "2026-07-28T01:03:50.000Z",
+                  "updatedAt": "2026-07-28T01:03:50.000Z",
+                  "uid": "35240-eab8ba99-940b-4143-9e00-7d3967b492f1"
+                }
+              ],
+              "createdAt": "2026-07-28T01:03:50.000Z",
+              "updatedAt": "2026-07-28T01:03:50.000Z",
+              "uid": "35240-a465bdeb-8220-4d7f-a535-c23f8750e031"
+            }
+          ],
+          "id": "b97bd3f6-f338-487e-b874-9e61116eca7d",
+          "createdAt": "2026-07-28T01:03:50.000Z",
+          "updatedAt": "2026-07-28T01:03:50.000Z",
+          "uid": "35240-b97bd3f6-f338-487e-b874-9e61116eca7d"
+        }
+      ],
+      "id": "14e6e172-a40e-4226-b66d-43ba4d46adb2",
+      "createdAt": "2026-07-28T01:03:50.000Z",
+      "updatedAt": "2026-07-28T01:03:50.000Z",
+      "uid": "35240-14e6e172-a40e-4226-b66d-43ba4d46adb2"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "tenant",
+      "value": "your-tenant"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{tenant}}.cloud.aquasec.com/api"
+    }
+  ]
+}

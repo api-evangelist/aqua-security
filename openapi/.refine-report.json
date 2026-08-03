@@ -1,0 +1,24 @@
+{
+  "provider": "aqua-security",
+  "sources": [
+    "aqua-security-authentication-api-openapi.yml",
+    "aqua-security-containers-api-openapi.yml",
+    "aqua-security-images-api-openapi.yml",
+    "aqua-security-policies-api-openapi.yml",
+    "aqua-security-registries-api-openapi.yml",
+    "aqua-security-users-api-openapi.yml"
+  ],
+  "outputs": [
+    "aqua-security-authentication-api-openapi.yml",
+    "aqua-security-containers-api-openapi.yml",
+    "aqua-security-images-api-openapi.yml",
+    "aqua-security-policies-api-openapi.yml",
+    "aqua-security-registries-api-openapi.yml",
+    "aqua-security-users-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
