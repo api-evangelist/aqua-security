@@ -86,17 +86,7 @@ apis:
     url: >-
       https://raw.githubusercontent.com/api-evangelist/aqua-security/refs/heads/main/json-schema/aqua-security-api-container-list-schema.json
   - type: X-NaftikoCapability
-    url: capabilities/aqua-security-authentication.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/aqua-security-containers.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/aqua-security-images.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/aqua-security-policies.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/aqua-security-registries.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/aqua-security-users.yaml
+    url: authentication/aqua-security-authentication.yml
 - aid: aqua-security:aqua-security-containers-api
   name: Aqua Security Containers API
   description: Running container monitoring and enforcement
@@ -118,17 +108,7 @@ apis:
     url: >-
       https://raw.githubusercontent.com/api-evangelist/aqua-security/refs/heads/main/json-schema/aqua-security-api-container-list-schema.json
   - type: X-NaftikoCapability
-    url: capabilities/aqua-security-authentication.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/aqua-security-containers.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/aqua-security-images.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/aqua-security-policies.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/aqua-security-registries.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/aqua-security-users.yaml
+    url: authentication/aqua-security-authentication.yml
 - aid: aqua-security:aqua-security-images-api
   name: Aqua Security Images API
   description: Container image scanning and vulnerability management
@@ -150,17 +130,7 @@ apis:
     url: >-
       https://raw.githubusercontent.com/api-evangelist/aqua-security/refs/heads/main/json-schema/aqua-security-api-container-list-schema.json
   - type: X-NaftikoCapability
-    url: capabilities/aqua-security-authentication.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/aqua-security-containers.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/aqua-security-images.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/aqua-security-policies.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/aqua-security-registries.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/aqua-security-users.yaml
+    url: authentication/aqua-security-authentication.yml
 - aid: aqua-security:aqua-security-policies-api
   name: Aqua Security Policies API
   description: Security policy management
@@ -182,17 +152,7 @@ apis:
     url: >-
       https://raw.githubusercontent.com/api-evangelist/aqua-security/refs/heads/main/json-schema/aqua-security-api-container-list-schema.json
   - type: X-NaftikoCapability
-    url: capabilities/aqua-security-authentication.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/aqua-security-containers.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/aqua-security-images.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/aqua-security-policies.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/aqua-security-registries.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/aqua-security-users.yaml
+    url: authentication/aqua-security-authentication.yml
 - aid: aqua-security:aqua-security-registries-api
   name: Aqua Security Registries API
   description: Container registry configuration
@@ -214,17 +174,7 @@ apis:
     url: >-
       https://raw.githubusercontent.com/api-evangelist/aqua-security/refs/heads/main/json-schema/aqua-security-api-container-list-schema.json
   - type: X-NaftikoCapability
-    url: capabilities/aqua-security-authentication.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/aqua-security-containers.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/aqua-security-images.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/aqua-security-policies.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/aqua-security-registries.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/aqua-security-users.yaml
+    url: authentication/aqua-security-authentication.yml
 - aid: aqua-security:aqua-security-users-api
   name: Aqua Security Users API
   description: User and role management
@@ -246,18 +196,21 @@ apis:
     url: >-
       https://raw.githubusercontent.com/api-evangelist/aqua-security/refs/heads/main/json-schema/aqua-security-api-container-list-schema.json
   - type: X-NaftikoCapability
-    url: capabilities/aqua-security-authentication.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/aqua-security-containers.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/aqua-security-images.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/aqua-security-policies.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/aqua-security-registries.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/aqua-security-users.yaml
+    url: authentication/aqua-security-authentication.yml
 common:
+- type: IssueTracker
+  url: https://github.com/aquasecurity/trivy/issues
+- type: Releases
+  url: https://github.com/aquasecurity/trivy/releases
+- type: SecurityPolicy
+  url: https://github.com/aquasecurity/trivy/blob/main/SECURITY.md
+- type: CodeOfConduct
+  url: https://github.com/aquasecurity/.github/blob/master/CODE_OF_CONDUCT.md
+- type: ContributionGuide
+  url: https://github.com/aquasecurity/trivy/blob/main/CONTRIBUTING.md
+- type: License
+  name: Apache-2.0
+  url: https://github.com/aquasecurity/trivy/blob/main/LICENSE
 - type: PostmanWorkspace
   url: https://www.postman.com/kinlaneapi/aqua-security/overview
 - type: AgenticAccess
