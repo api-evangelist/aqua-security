@@ -1,0 +1,160 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Aqua Security REST Authentication Images API",
+    "version": "2022.4"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Images",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Aqua Security List Images",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tenant}.cloud.aquasec.com/api/v1/images",
+            "params": [
+              {
+                "name": "registry",
+                "value": "docker-hub",
+                "type": "query",
+                "description": "Filter images by registry name"
+              },
+              {
+                "name": "repository",
+                "value": "nginx",
+                "type": "query",
+                "description": "Filter images by repository name"
+              },
+              {
+                "name": "tag",
+                "value": "latest",
+                "type": "query",
+                "description": "Filter images by tag"
+              },
+              {
+                "name": "page",
+                "value": "1",
+                "type": "query",
+                "description": "Page number for pagination"
+              },
+              {
+                "name": "pagesize",
+                "value": "50",
+                "type": "query",
+                "description": "Number of results per page"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List all container images registered in the Aqua platform."
+        },
+        {
+          "info": {
+            "name": "Aqua Security Register Image",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{tenant}.cloud.aquasec.com/api/v1/images",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Register a container image for scanning and policy enforcement."
+        },
+        {
+          "info": {
+            "name": "Aqua Security Get Image Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tenant}.cloud.aquasec.com/api/v1/images/:registry/:image_name/:image_tag",
+            "params": [
+              {
+                "name": "registry",
+                "value": "docker-hub",
+                "type": "path",
+                "description": "Registry name"
+              },
+              {
+                "name": "image_name",
+                "value": "nginx",
+                "type": "path",
+                "description": "Image repository name"
+              },
+              {
+                "name": "image_tag",
+                "value": "latest",
+                "type": "path",
+                "description": "Image tag"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get detailed information and vulnerability data for a specific container image."
+        },
+        {
+          "info": {
+            "name": "Aqua Security Delete Image",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{tenant}.cloud.aquasec.com/api/v1/images/:registry/:image_name/:image_tag",
+            "params": [
+              {
+                "name": "registry",
+                "value": "docker-hub",
+                "type": "path",
+                "description": "Registry name"
+              },
+              {
+                "name": "image_name",
+                "value": "nginx",
+                "type": "path",
+                "description": "Image repository name"
+              },
+              {
+                "name": "image_tag",
+                "value": "latest",
+                "type": "path",
+                "description": "Image tag"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Remove a container image from the Aqua platform."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

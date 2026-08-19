@@ -1,0 +1,59 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Aqua Security REST Authentication Containers API",
+    "version": "2022.4"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Containers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Aqua Security List Containers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{tenant}.cloud.aquasec.com/api/v1/containers",
+            "params": [
+              {
+                "name": "status",
+                "value": "running",
+                "type": "query",
+                "description": "Filter by container status"
+              },
+              {
+                "name": "page",
+                "value": "1",
+                "type": "query",
+                "description": "Page number for pagination"
+              },
+              {
+                "name": "pagesize",
+                "value": "50",
+                "type": "query",
+                "description": "Number of results per page"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List all running containers monitored by the Aqua enforcement agent."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
