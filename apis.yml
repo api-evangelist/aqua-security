@@ -18,6 +18,13 @@ accessModel:
   method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/aqua-security.png
 tags:
+- Cloud-Native
+- Containers
+- Kubernetes
+- Runtime Protection
+- Security
+- Vulnerability Scanning
+tags_raw:
 - Cloud Native
 - Containers
 - Kubernetes
@@ -37,6 +44,12 @@ apis:
   humanURL: https://trivy.dev/
   tags:
   - Container Scanning
+  - Open-Source
+  - Vulnerability Scanner
+  - SBOM
+  - Kubernetes Security
+  tags_raw:
+  - Container Scanning
   - Open Source
   - Vulnerability Scanner
   - SBOM
@@ -55,6 +68,12 @@ apis:
     events and detect suspicious behavioral patterns.
   humanURL: https://aquasecurity.github.io/tracee/
   tags:
+  - eBPF
+  - Runtime Security
+  - Linux Security
+  - Forensics
+  - Open-Source
+  tags_raw:
   - eBPF
   - Runtime Security
   - Linux Security
@@ -114,6 +133,8 @@ apis:
   description: Container image scanning and vulnerability management
   humanURL: https://www.aquasec.com/
   tags:
+  - Image
+  tags_raw:
   - Images
   properties:
   - type: OpenAPI
@@ -180,6 +201,8 @@ apis:
   description: User and role management
   humanURL: https://www.aquasec.com/
   tags:
+  - User
+  tags_raw:
   - Users
   properties:
   - type: OpenAPI
