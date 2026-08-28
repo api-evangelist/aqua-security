@@ -12,8 +12,14 @@ info:
     description.
   version: 1.0.0
 sourceDescriptions:
-- name: aquaSecurityApi
-  url: ../openapi/aqua-security-api.yaml
+- name: authenticationApi
+  url: ../openapi/aqua-security-authentication-api-openapi.yml
+  type: openapi
+- name: containersApi
+  url: ../openapi/aqua-security-containers-api-openapi.yml
+  type: openapi
+- name: imagesApi
+  url: ../openapi/aqua-security-images-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: running-container-inventory

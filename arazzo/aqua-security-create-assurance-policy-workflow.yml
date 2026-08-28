@@ -10,8 +10,11 @@ info:
     can be read and executed without opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: aquaSecurityApi
-  url: ../openapi/aqua-security-api.yaml
+- name: authenticationApi
+  url: ../openapi/aqua-security-authentication-api-openapi.yml
+  type: openapi
+- name: policiesApi
+  url: ../openapi/aqua-security-policies-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: create-assurance-policy

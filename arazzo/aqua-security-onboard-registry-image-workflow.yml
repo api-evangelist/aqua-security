@@ -12,8 +12,14 @@ info:
     underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: aquaSecurityApi
-  url: ../openapi/aqua-security-api.yaml
+- name: authenticationApi
+  url: ../openapi/aqua-security-authentication-api-openapi.yml
+  type: openapi
+- name: imagesApi
+  url: ../openapi/aqua-security-images-api-openapi.yml
+  type: openapi
+- name: registriesApi
+  url: ../openapi/aqua-security-registries-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: onboard-registry-image
