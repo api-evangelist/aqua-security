@@ -19,6 +19,14 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
+  "notes": [
+    "aqua-security-authentication-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "aqua-security-containers-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "aqua-security-images-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "aqua-security-policies-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "aqua-security-registries-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "aqua-security-users-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
   "skipped": []
 }

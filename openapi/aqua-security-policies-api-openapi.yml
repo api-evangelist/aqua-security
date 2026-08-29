@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Aqua Security REST Authentication Policies API
   description: The Aqua Security REST API provides programmatic access to manage images, containers, policies, users, registries, and runtime security configurations for the Aqua Cloud Native Security Platform.
@@ -111,27 +111,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    PolicyRequest:
-      type: object
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          description: Policy name (unique)
-          example: high-security
-        description:
-          type: string
-          description: Policy description
-          example: Policy blocking high severity vulnerabilities
-        block_failed:
-          type: boolean
-          description: Block containers failing policy
-          example: true
-        maximum_score:
-          type: number
-          description: Maximum CVSS score threshold
-          example: 7.0
     Policy:
       type: object
       properties:
@@ -174,6 +153,27 @@ components:
           type: integer
           description: Error code
           example: 401
+    PolicyRequest:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Policy name (unique)
+          example: high-security
+        description:
+          type: string
+          description: Policy description
+          example: Policy blocking high severity vulnerabilities
+        block_failed:
+          type: boolean
+          description: Block containers failing policy
+          example: true
+        maximum_score:
+          type: number
+          description: Maximum CVSS score threshold
+          example: 7.0
   securitySchemes:
     BearerAuth:
       type: http

@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Aqua Security REST Authentication API
   description: The Aqua Security REST API provides programmatic access to manage images, containers, policies, users, registries, and runtime security configurations for the Aqua Cloud Native Security Platform.
@@ -79,6 +79,20 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    LoginRequest:
+      type: object
+      required:
+      - id
+      - password
+      properties:
+        id:
+          type: string
+          description: Username or user ID
+          example: admin
+        password:
+          type: string
+          description: User password
+          example: s3cur3P@ssw0rd
     ErrorResponse:
       type: object
       properties:
@@ -97,20 +111,6 @@ components:
           type: string
           description: JWT bearer token for subsequent API calls
           example: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.abc123
-    LoginRequest:
-      type: object
-      required:
-      - id
-      - password
-      properties:
-        id:
-          type: string
-          description: Username or user ID
-          example: admin
-        password:
-          type: string
-          description: User password
-          example: s3cur3P@ssw0rd
   securitySchemes:
     BearerAuth:
       type: http

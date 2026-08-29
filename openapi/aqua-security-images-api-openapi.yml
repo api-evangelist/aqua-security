@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Aqua Security REST Authentication Images API
   description: The Aqua Security REST API provides programmatic access to manage images, containers, policies, users, registries, and runtime security configurations for the Aqua Cloud Native Security Platform.
@@ -264,31 +264,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    ImageRequest:
-      type: object
-      required:
-      - registry
-      - image
-      properties:
-        registry:
-          type: string
-          description: Name of the configured registry
-          example: docker-hub
-        image:
-          type: string
-          description: Full image name including tag
-          example: nginx:latest
-    ImageList:
-      type: object
-      properties:
-        count:
-          type: integer
-          description: Total number of images
-          example: 100
-        result:
-          type: array
-          items:
-            $ref: '#/components/schemas/Image'
     Image:
       type: object
       properties:
@@ -323,40 +298,6 @@ components:
           type: boolean
           description: Whether the image is blocked by policy
           example: false
-    ErrorResponse:
-      type: object
-      properties:
-        message:
-          type: string
-          description: Human-readable error description
-          example: Unauthorized access
-        code:
-          type: integer
-          description: Error code
-          example: 401
-    VulnerabilityCounts:
-      type: object
-      properties:
-        critical:
-          type: integer
-          description: Number of critical severity vulnerabilities
-          example: 0
-        high:
-          type: integer
-          description: Number of high severity vulnerabilities
-          example: 3
-        medium:
-          type: integer
-          description: Number of medium severity vulnerabilities
-          example: 12
-        low:
-          type: integer
-          description: Number of low severity vulnerabilities
-          example: 24
-        negligible:
-          type: integer
-          description: Number of negligible severity vulnerabilities
-          example: 5
     ImageDetail:
       allOf:
       - $ref: '#/components/schemas/Image'
@@ -380,6 +321,65 @@ components:
             format: date-time
             description: Date the image was last scanned
             example: '2026-04-18T10:00:00Z'
+    VulnerabilityCounts:
+      type: object
+      properties:
+        critical:
+          type: integer
+          description: Number of critical severity vulnerabilities
+          example: 0
+        high:
+          type: integer
+          description: Number of high severity vulnerabilities
+          example: 3
+        medium:
+          type: integer
+          description: Number of medium severity vulnerabilities
+          example: 12
+        low:
+          type: integer
+          description: Number of low severity vulnerabilities
+          example: 24
+        negligible:
+          type: integer
+          description: Number of negligible severity vulnerabilities
+          example: 5
+    ImageRequest:
+      type: object
+      required:
+      - registry
+      - image
+      properties:
+        registry:
+          type: string
+          description: Name of the configured registry
+          example: docker-hub
+        image:
+          type: string
+          description: Full image name including tag
+          example: nginx:latest
+    ImageList:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: Total number of images
+          example: 100
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/Image'
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human-readable error description
+          example: Unauthorized access
+        code:
+          type: integer
+          description: Error code
+          example: 401
   securitySchemes:
     BearerAuth:
       type: http
