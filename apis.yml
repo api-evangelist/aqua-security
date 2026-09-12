@@ -236,6 +236,8 @@ apis:
   - type: X-NaftikoCapability
     url: authentication/aqua-security-authentication.yml
 common:
+- type: Website
+  url: https://www.aquasec.com/
 - type: IssueTracker
   url: https://github.com/aquasecurity/trivy/issues
 - type: Releases
