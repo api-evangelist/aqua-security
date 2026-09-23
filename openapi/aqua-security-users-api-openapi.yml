@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Aqua Security REST Authentication Users API
+  title: Aqua Security REST Users API
   description: The Aqua Security REST API provides programmatic access to manage images, containers, policies, users, registries, and runtime security configurations for the Aqua Cloud Native Security Platform.
   version: '2022.4'
   x-generated-from: documentation
@@ -67,17 +67,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    ErrorResponse:
-      type: object
-      properties:
-        message:
-          type: string
-          description: Human-readable error description
-          example: Unauthorized access
-        code:
-          type: integer
-          description: Error code
-          example: 401
     UserList:
       type: object
       properties:
@@ -115,6 +104,17 @@ components:
           format: email
           description: User email address
           example: admin@example.com
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human-readable error description
+          example: Unauthorized access
+        code:
+          type: integer
+          description: Error code
+          example: 401
   securitySchemes:
     BearerAuth:
       type: http

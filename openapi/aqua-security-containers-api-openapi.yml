@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Aqua Security REST Authentication Containers API
+  title: Aqua Security REST Containers API
   description: The Aqua Security REST API provides programmatic access to manage images, containers, policies, users, registries, and runtime security configurations for the Aqua Cloud Native Security Platform.
   version: '2022.4'
   x-generated-from: documentation
@@ -103,17 +103,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Container'
-    ErrorResponse:
-      type: object
-      properties:
-        message:
-          type: string
-          description: Human-readable error description
-          example: Unauthorized access
-        code:
-          type: integer
-          description: Error code
-          example: 401
     Container:
       type: object
       properties:
@@ -145,6 +134,17 @@ components:
           type: string
           description: Host running the container
           example: kube-node-01
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human-readable error description
+          example: Unauthorized access
+        code:
+          type: integer
+          description: Error code
+          example: 401
   securitySchemes:
     BearerAuth:
       type: http

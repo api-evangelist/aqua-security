@@ -1,12 +1,7 @@
 {
   "provider": "aqua-security",
   "sources": [
-    "aqua-security-authentication-api-openapi.yml",
-    "aqua-security-containers-api-openapi.yml",
-    "aqua-security-images-api-openapi.yml",
-    "aqua-security-policies-api-openapi.yml",
-    "aqua-security-registries-api-openapi.yml",
-    "aqua-security-users-api-openapi.yml"
+    "_ae-authored/aqua-security-api.yaml"
   ],
   "outputs": [
     "aqua-security-authentication-api-openapi.yml",
@@ -20,13 +15,16 @@
   "errors": [],
   "warnings": [],
   "notes": [
-    "aqua-security-authentication-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "aqua-security-containers-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "aqua-security-images-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "aqua-security-policies-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "aqua-security-registries-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "aqua-security-users-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "sourced from openapi/_original/ (0 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "aqua-security-api.yaml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
     "apis.yml register: already-registered"
   ],
-  "skipped": []
+  "skipped": [
+    "aqua-security-authentication-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "aqua-security-containers-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "aqua-security-images-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "aqua-security-policies-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "aqua-security-registries-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "aqua-security-users-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

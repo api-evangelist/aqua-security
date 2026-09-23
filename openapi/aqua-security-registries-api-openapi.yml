@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Aqua Security REST Authentication Registries API
+  title: Aqua Security REST Registries API
   description: The Aqua Security REST API provides programmatic access to manage images, containers, policies, users, registries, and runtime security configurations for the Aqua Cloud Native Security Platform.
   version: '2022.4'
   x-generated-from: documentation
@@ -67,6 +67,17 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    RegistryList:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: Total number of registries
+          example: 3
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/Registry'
     Registry:
       type: object
       properties:
@@ -113,17 +124,6 @@ components:
           type: integer
           description: Error code
           example: 401
-    RegistryList:
-      type: object
-      properties:
-        count:
-          type: integer
-          description: Total number of registries
-          example: 3
-        result:
-          type: array
-          items:
-            $ref: '#/components/schemas/Registry'
   securitySchemes:
     BearerAuth:
       type: http
