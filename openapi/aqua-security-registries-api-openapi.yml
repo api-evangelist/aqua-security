@@ -78,6 +78,17 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Registry'
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human-readable error description
+          example: Unauthorized access
+        code:
+          type: integer
+          description: Error code
+          example: 401
     Registry:
       type: object
       properties:
@@ -113,17 +124,6 @@ components:
           - disconnected
           - error
           example: connected
-    ErrorResponse:
-      type: object
-      properties:
-        message:
-          type: string
-          description: Human-readable error description
-          example: Unauthorized access
-        code:
-          type: integer
-          description: Error code
-          example: 401
   securitySchemes:
     BearerAuth:
       type: http

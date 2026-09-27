@@ -59,8 +59,8 @@ apis:
   humanURL: https://trivy.dev/
   tags:
   - Container Scanning
-  - Open-Source
-  - Vulnerability Scanner
+  - Open Source
+  - Vulnerability Scanning
   - SBOM
   - Kubernetes Security
   tags_raw:
@@ -69,6 +69,7 @@ apis:
   - Vulnerability Scanner
   - SBOM
   - Kubernetes Security
+  - Open-Source
   properties:
   - type: Documentation
     url: https://aquasecurity.github.io/trivy/
@@ -87,13 +88,14 @@ apis:
   - Runtime Security
   - Linux Security
   - Forensics
-  - Open-Source
+  - Open Source
   tags_raw:
   - eBPF
   - Runtime Security
   - Linux Security
   - Forensics
   - Open Source
+  - Open-Source
   properties:
   - type: Documentation
     url: https://aquasecurity.github.io/tracee/

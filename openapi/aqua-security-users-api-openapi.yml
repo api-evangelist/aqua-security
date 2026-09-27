@@ -78,6 +78,17 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/User'
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human-readable error description
+          example: Unauthorized access
+        code:
+          type: integer
+          description: Error code
+          example: 401
     User:
       type: object
       properties:
@@ -104,17 +115,6 @@ components:
           format: email
           description: User email address
           example: admin@example.com
-    ErrorResponse:
-      type: object
-      properties:
-        message:
-          type: string
-          description: Human-readable error description
-          example: Unauthorized access
-        code:
-          type: integer
-          description: Error code
-          example: 401
   securitySchemes:
     BearerAuth:
       type: http

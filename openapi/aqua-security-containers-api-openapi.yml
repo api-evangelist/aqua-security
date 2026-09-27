@@ -92,17 +92,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    ContainerList:
-      type: object
-      properties:
-        count:
-          type: integer
-          description: Total number of containers
-          example: 50
-        result:
-          type: array
-          items:
-            $ref: '#/components/schemas/Container'
     Container:
       type: object
       properties:
@@ -145,6 +134,17 @@ components:
           type: integer
           description: Error code
           example: 401
+    ContainerList:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: Total number of containers
+          example: 50
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/Container'
   securitySchemes:
     BearerAuth:
       type: http

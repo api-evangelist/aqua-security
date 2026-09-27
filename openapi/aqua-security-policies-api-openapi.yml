@@ -152,17 +152,6 @@ components:
           type: number
           description: Maximum CVSS score threshold
           example: 7.0
-    PolicyList:
-      type: object
-      properties:
-        count:
-          type: integer
-          description: Total number of policies
-          example: 5
-        result:
-          type: array
-          items:
-            $ref: '#/components/schemas/Policy'
     ErrorResponse:
       type: object
       properties:
@@ -174,6 +163,17 @@ components:
           type: integer
           description: Error code
           example: 401
+    PolicyList:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: Total number of policies
+          example: 5
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/Policy'
   securitySchemes:
     BearerAuth:
       type: http
