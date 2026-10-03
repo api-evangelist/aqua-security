@@ -67,17 +67,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    UserList:
-      type: object
-      properties:
-        count:
-          type: integer
-          description: Total number of users
-          example: 10
-        result:
-          type: array
-          items:
-            $ref: '#/components/schemas/User'
     ErrorResponse:
       type: object
       properties:
@@ -89,6 +78,17 @@ components:
           type: integer
           description: Error code
           example: 401
+    UserList:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: Total number of users
+          example: 10
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
     User:
       type: object
       properties:

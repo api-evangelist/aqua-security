@@ -111,26 +111,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    Policy:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Policy name
-          example: default
-        description:
-          type: string
-          description: Policy description
-          example: Default security policy
-        block_failed:
-          type: boolean
-          description: Whether to block containers that fail policy evaluation
-          example: true
-        maximum_score:
-          type: number
-          format: float
-          description: Maximum CVSS score allowed (0-10)
-          example: 7.0
     PolicyRequest:
       type: object
       required:
@@ -174,6 +154,26 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Policy'
+    Policy:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Policy name
+          example: default
+        description:
+          type: string
+          description: Policy description
+          example: Default security policy
+        block_failed:
+          type: boolean
+          description: Whether to block containers that fail policy evaluation
+          example: true
+        maximum_score:
+          type: number
+          format: float
+          description: Maximum CVSS score allowed (0-10)
+          example: 7.0
   securitySchemes:
     BearerAuth:
       type: http

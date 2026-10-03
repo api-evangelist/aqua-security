@@ -79,6 +79,17 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Human-readable error description
+          example: Unauthorized access
+        code:
+          type: integer
+          description: Error code
+          example: 401
     LoginRequest:
       type: object
       required:
@@ -93,17 +104,6 @@ components:
           type: string
           description: User password
           example: s3cur3P@ssw0rd
-    ErrorResponse:
-      type: object
-      properties:
-        message:
-          type: string
-          description: Human-readable error description
-          example: Unauthorized access
-        code:
-          type: integer
-          description: Error code
-          example: 401
     LoginResponse:
       type: object
       properties:
