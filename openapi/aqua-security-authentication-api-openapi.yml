@@ -79,6 +79,13 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    LoginResponse:
+      type: object
+      properties:
+        token:
+          type: string
+          description: JWT bearer token for subsequent API calls
+          example: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.abc123
     ErrorResponse:
       type: object
       properties:
@@ -104,13 +111,6 @@ components:
           type: string
           description: User password
           example: s3cur3P@ssw0rd
-    LoginResponse:
-      type: object
-      properties:
-        token:
-          type: string
-          description: JWT bearer token for subsequent API calls
-          example: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.abc123
   securitySchemes:
     BearerAuth:
       type: http

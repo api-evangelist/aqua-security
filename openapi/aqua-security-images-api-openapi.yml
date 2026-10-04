@@ -275,6 +275,40 @@ components:
           type: integer
           description: Error code
           example: 401
+    ImageList:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: Total number of images
+          example: 100
+        result:
+          type: array
+          items:
+            $ref: '#/components/schemas/Image'
+    ImageDetail:
+      allOf:
+      - $ref: '#/components/schemas/Image'
+      - type: object
+        properties:
+          os:
+            type: string
+            description: Operating system of the image
+            example: debian:bullseye-slim
+          size:
+            type: integer
+            description: Image size in bytes
+            example: 142000000
+          created:
+            type: string
+            format: date-time
+            description: Image creation timestamp
+            example: '2025-03-15T14:30:00Z'
+          scan_date:
+            type: string
+            format: date-time
+            description: Date the image was last scanned
+            example: '2026-04-18T10:00:00Z'
     VulnerabilityCounts:
       type: object
       properties:
@@ -298,6 +332,20 @@ components:
           type: integer
           description: Number of negligible severity vulnerabilities
           example: 5
+    ImageRequest:
+      type: object
+      required:
+      - registry
+      - image
+      properties:
+        registry:
+          type: string
+          description: Name of the configured registry
+          example: docker-hub
+        image:
+          type: string
+          description: Full image name including tag
+          example: nginx:latest
     Image:
       type: object
       properties:
@@ -332,54 +380,6 @@ components:
           type: boolean
           description: Whether the image is blocked by policy
           example: false
-    ImageList:
-      type: object
-      properties:
-        count:
-          type: integer
-          description: Total number of images
-          example: 100
-        result:
-          type: array
-          items:
-            $ref: '#/components/schemas/Image'
-    ImageRequest:
-      type: object
-      required:
-      - registry
-      - image
-      properties:
-        registry:
-          type: string
-          description: Name of the configured registry
-          example: docker-hub
-        image:
-          type: string
-          description: Full image name including tag
-          example: nginx:latest
-    ImageDetail:
-      allOf:
-      - $ref: '#/components/schemas/Image'
-      - type: object
-        properties:
-          os:
-            type: string
-            description: Operating system of the image
-            example: debian:bullseye-slim
-          size:
-            type: integer
-            description: Image size in bytes
-            example: 142000000
-          created:
-            type: string
-            format: date-time
-            description: Image creation timestamp
-            example: '2025-03-15T14:30:00Z'
-          scan_date:
-            type: string
-            format: date-time
-            description: Date the image was last scanned
-            example: '2026-04-18T10:00:00Z'
   securitySchemes:
     BearerAuth:
       type: http
