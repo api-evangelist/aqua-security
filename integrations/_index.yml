@@ -321,3 +321,44 @@
     identity_source: register website (CMVP certificate Vendor panel)
   status: not-a-workflow
   arazzo: null
+- slug: aqua-security-servicenow-store-partner-apps
+  label: ServiceNow Store (partner apps)
+  partner: servicenow
+  partner_name: ServiceNow Store (partner apps)
+  category: ServiceNow Store partner app / app certification
+  type: register
+  channel: standard-directory
+  evidence: https://store.servicenow.com/store/seller/de1e1f68dbcd841422e0fb24399619e4
+  source: edge
+  relationship: standard-participant
+  contract_reference:
+    register: ServiceNow Store (store.servicenow.com/store/sitemap_xml -> /store/app/<id> server-rendered pages)
+    standard: ServiceNow Store app certification (ServiceNow Certified App badge)
+    spec_file: null
+    role: servicenow-store-partner
+    registered_name: Aqua Security Software, Inc.
+    register_id: de1e1f68dbcd841422e0fb24399619e4
+    matched_domain: aquasec.com
+    matched_by: domain
+    identity_source: the listing's own seller website link (no lookup)
+    certified_products:
+    - product: ServiceNow Certified App (scoped_app / integration)
+      product_type: scoped_app / integration
+      standard: ServiceNow Store app certification (ServiceNow Certified App badge)
+      lapsed: false
+      products_sample:
+      - Aqua Security Platform  integration with Vulnerability Response for Containers
+      releases:
+      - Yokohama
+      - Zurich
+      - Australia
+    products_sample:
+    - Aqua Security Platform  integration with Vulnerability Response for Containers
+    signal_note: 'listing alone = standard-participant; certified_products = one entry per Application type the
+      seller holds a ServiceNow Certified App badge for, standard named on each; lapsed: true when none of that
+      type''s certified apps lists either of the two newest release families on the Store; app counts are context,
+      never counted'
+    detected_by: sweep-servicenow-store.py
+    detected: '2026-10-23'
+  status: not-a-workflow
+  arazzo: null
