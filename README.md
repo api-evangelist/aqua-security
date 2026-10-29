@@ -1,4 +1,4 @@
-# Aqua Security (aqua-security)
+# Aqua Security
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,178 +66,245 @@
 
 Aqua Security provides cloud-native security for the full application lifecycle, protecting containers, serverless functions, and cloud workloads with vulnerability scanning, runtime protection, and compliance enforcement.
 
-**URL:** [https://www.aquasec.com/](https://www.aquasec.com/)
+**Areas:** Cloud-Native · Containers · Kubernetes · Runtime Protection · Security · Vulnerability Scanning
 
-**Run:** [Capabilities Using Naftiko](https://github.com/naftiko/fleet?utm_source=api-evangelist&utm_medium=readme&utm_campaign=company-api-evangelist&utm_content=repo)
+## Aqua Security on APIs.io
 
-## Tags:
+Everything profiled for Aqua Security is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/aqua-security/](https://apis.io/providers/aqua-security/)** — or go straight to one of the APIs or properties below.
 
- - Cloud Native, Containers, Kubernetes, Runtime Protection, Security, Vulnerability Scanning
+### APIs (8)
 
-## Timestamps
+- [Trivy](https://apis.io/apis/aqua-security/trivy/) — Trivy is a comprehensive open source security scanner for containers, Kubernetes, code repositories, clouds, and more — finding vulnerabilities,…
+- [Tracee](https://apis.io/apis/aqua-security/tracee/) — Tracee is a runtime security and forensics tool for Linux that uses eBPF technology to trace system events and detect suspicious behavioral patterns.
+- [Aqua Security Authentication API](https://apis.io/apis/aqua-security/aqua-security-authentication-api/) — User authentication and token management
+- [Aqua Security Containers API](https://apis.io/apis/aqua-security/aqua-security-containers-api/) — Running container monitoring and enforcement
+- [Aqua Security Images API](https://apis.io/apis/aqua-security/aqua-security-images-api/) — Container image scanning and vulnerability management
+- [Aqua Security Policies API](https://apis.io/apis/aqua-security/aqua-security-policies-api/) — Security policy management
+- [Aqua Security Registries API](https://apis.io/apis/aqua-security/aqua-security-registries-api/) — Container registry configuration
+- [Aqua Security Users API](https://apis.io/apis/aqua-security/aqua-security-users-api/) — User and role management
 
-- **Created:** 2026-03-26
-- **Modified:** 2026-04-19
+### Published properties
 
-## APIs
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-### Aqua Security
-Aqua Security provides cloud-native security for the full application lifecycle, protecting containers, serverless functions, and cloud workloads with vulnerability scanning, runtime protection, and compliance enforcement.
+#### Arazzo workflows (8)
 
-**Human URL:** [https://www.aquasec.com/](https://www.aquasec.com/)
+Multi-step workflows that chain operations into a business task.
 
-#### Tags:
+- [Aqua Security Create Assurance Policy](https://apis.io/arazzos/aqua-security/aqua-security-create-assurance-policy-workflow/)
+- [Aqua Security Image Compliance Gate](https://apis.io/arazzos/aqua-security/aqua-security-image-compliance-gate-workflow/)
+- [Aqua Security Image Vulnerability Lookup](https://apis.io/arazzos/aqua-security/aqua-security-image-vulnerability-lookup-workflow/)
+- [Aqua Security Onboard Registry Image](https://apis.io/arazzos/aqua-security/aqua-security-onboard-registry-image-workflow/)
+- [Aqua Security Registry Inventory](https://apis.io/arazzos/aqua-security/aqua-security-registry-inventory-workflow/)
+- [Aqua Security Rescan And Cleanup](https://apis.io/arazzos/aqua-security/aqua-security-rescan-and-cleanup-workflow/)
+- [Aqua Security Running Container Inventory](https://apis.io/arazzos/aqua-security/aqua-security-running-container-inventory-workflow/)
+- [Aqua Security Scan Image On Demand](https://apis.io/arazzos/aqua-security/aqua-security-scan-image-on-demand-workflow/)
 
- - Cloud Native Security, Container Security, Kubernetes, Runtime Protection, Security, Vulnerability Scanning, CSPM, DevSecOps
+#### MCP servers (1)
 
-#### Properties
+Model Context Protocol servers that expose the API to agents.
 
+- [MCP Server](https://apis.io/servers/aqua-security/mcp-server/)
+
+#### Agentic access (1)
+
+Which operations an agent can call, which act, and which need a human in the loop.
+
+- [Aqua Security Agentic Access](https://apis.io/agentic-access/aqua-security/aqua-security-agentic-access/)
+
+#### JSON Schema (17)
+
+The data models the API reads and writes.
+
+- [Container](https://apis.io/schemas/aqua-security/aqua-security-api-container/)
+- [ContainerList](https://apis.io/schemas/aqua-security/aqua-security-api-container-list/)
+- [ErrorResponse](https://apis.io/schemas/aqua-security/aqua-security-api-error-response/)
+- [Image](https://apis.io/schemas/aqua-security/aqua-security-api-image/)
+- [ImageDetail](https://apis.io/schemas/aqua-security/aqua-security-api-image-detail/)
+- [ImageList](https://apis.io/schemas/aqua-security/aqua-security-api-image-list/)
+- [ImageRequest](https://apis.io/schemas/aqua-security/aqua-security-api-image-request/)
+- [LoginRequest](https://apis.io/schemas/aqua-security/aqua-security-api-login-request/)
+- [LoginResponse](https://apis.io/schemas/aqua-security/aqua-security-api-login-response/)
+- [Policy](https://apis.io/schemas/aqua-security/aqua-security-api-policy/)
+- [PolicyList](https://apis.io/schemas/aqua-security/aqua-security-api-policy-list/)
+- [PolicyRequest](https://apis.io/schemas/aqua-security/aqua-security-api-policy-request/)
+- [Registry](https://apis.io/schemas/aqua-security/aqua-security-api-registry/)
+- [RegistryList](https://apis.io/schemas/aqua-security/aqua-security-api-registry-list/)
+- [User](https://apis.io/schemas/aqua-security/aqua-security-api-user/)
+- [UserList](https://apis.io/schemas/aqua-security/aqua-security-api-user-list/)
+- [VulnerabilityCounts](https://apis.io/schemas/aqua-security/aqua-security-api-vulnerability-counts/)
+
+#### JSON Structure (17)
+
+Data models expressed in JSON Structure.
+
+- [Aqua Security Api Container List Structure](https://apis.io/json-structure/aqua-security/aqua-security-api-container-list-structure/)
+- [Aqua Security Api Container Structure](https://apis.io/json-structure/aqua-security/aqua-security-api-container-structure/)
+- [Aqua Security Api Error Response Structure](https://apis.io/json-structure/aqua-security/aqua-security-api-error-response-structure/)
+- [Aqua Security Api Image Detail Structure](https://apis.io/json-structure/aqua-security/aqua-security-api-image-detail-structure/)
+- [Aqua Security Api Image List Structure](https://apis.io/json-structure/aqua-security/aqua-security-api-image-list-structure/)
+- [Aqua Security Api Image Request Structure](https://apis.io/json-structure/aqua-security/aqua-security-api-image-request-structure/)
+- [Aqua Security Api Image Structure](https://apis.io/json-structure/aqua-security/aqua-security-api-image-structure/)
+- [Aqua Security Api Login Request Structure](https://apis.io/json-structure/aqua-security/aqua-security-api-login-request-structure/)
+- [Aqua Security Api Login Response Structure](https://apis.io/json-structure/aqua-security/aqua-security-api-login-response-structure/)
+- [Aqua Security Api Policy List Structure](https://apis.io/json-structure/aqua-security/aqua-security-api-policy-list-structure/)
+- [Aqua Security Api Policy Request Structure](https://apis.io/json-structure/aqua-security/aqua-security-api-policy-request-structure/)
+- [Aqua Security Api Policy Structure](https://apis.io/json-structure/aqua-security/aqua-security-api-policy-structure/)
+- [Aqua Security Api Registry List Structure](https://apis.io/json-structure/aqua-security/aqua-security-api-registry-list-structure/)
+- [Aqua Security Api Registry Structure](https://apis.io/json-structure/aqua-security/aqua-security-api-registry-structure/)
+- [Aqua Security Api User List Structure](https://apis.io/json-structure/aqua-security/aqua-security-api-user-list-structure/)
+- [Aqua Security Api User Structure](https://apis.io/json-structure/aqua-security/aqua-security-api-user-structure/)
+- [Aqua Security Api Vulnerability Counts Structure](https://apis.io/json-structure/aqua-security/aqua-security-api-vulnerability-counts-structure/)
+
+#### JSON-LD (1)
+
+Linked-data contexts for the provider's vocabulary.
+
+- [Aqua Security Api Context](https://apis.io/jsonld/aqua-security/aqua-security-api-context/)
+
+#### Vocabulary (1)
+
+The provider's domain terms, defined.
+
+- [Aqua Security Vocabulary](https://apis.io/vocabularies/aqua-security/aqua-security-vocabulary/)
+
+#### Examples (17)
+
+Example requests and responses.
+
+- [Aqua Security Api Container Example](https://apis.io/examples/aqua-security/aqua-security-api-container-example/)
+- [Aqua Security Api Container List Example](https://apis.io/examples/aqua-security/aqua-security-api-container-list-example/)
+- [Aqua Security Api Error Response Example](https://apis.io/examples/aqua-security/aqua-security-api-error-response-example/)
+- [Aqua Security Api Image Detail Example](https://apis.io/examples/aqua-security/aqua-security-api-image-detail-example/)
+- [Aqua Security Api Image Example](https://apis.io/examples/aqua-security/aqua-security-api-image-example/)
+- [Aqua Security Api Image List Example](https://apis.io/examples/aqua-security/aqua-security-api-image-list-example/)
+- [Aqua Security Api Image Request Example](https://apis.io/examples/aqua-security/aqua-security-api-image-request-example/)
+- [Aqua Security Api Login Request Example](https://apis.io/examples/aqua-security/aqua-security-api-login-request-example/)
+- [Aqua Security Api Login Response Example](https://apis.io/examples/aqua-security/aqua-security-api-login-response-example/)
+- [Aqua Security Api Policy Example](https://apis.io/examples/aqua-security/aqua-security-api-policy-example/)
+- [Aqua Security Api Policy List Example](https://apis.io/examples/aqua-security/aqua-security-api-policy-list-example/)
+- [Aqua Security Api Policy Request Example](https://apis.io/examples/aqua-security/aqua-security-api-policy-request-example/)
+- [Aqua Security Api Registry Example](https://apis.io/examples/aqua-security/aqua-security-api-registry-example/)
+- [Aqua Security Api Registry List Example](https://apis.io/examples/aqua-security/aqua-security-api-registry-list-example/)
+- [Aqua Security Api User Example](https://apis.io/examples/aqua-security/aqua-security-api-user-example/)
+- [Aqua Security Api User List Example](https://apis.io/examples/aqua-security/aqua-security-api-user-list-example/)
+- [Aqua Security Api Vulnerability Counts Example](https://apis.io/examples/aqua-security/aqua-security-api-vulnerability-counts-example/)
+
+#### Collections (12)
+
+Postman and Open Collection request collections.
+
+- [Aqua Security REST Authentication API](https://apis.io/collections/aqua-security/open-aqua-security-authentication-api/)
+- [Aqua Security REST Authentication Containers API](https://apis.io/collections/aqua-security/open-aqua-security-containers-api/)
+- [Aqua Security REST Authentication Images API](https://apis.io/collections/aqua-security/open-aqua-security-images-api/)
+- [Aqua Security REST Authentication Policies API](https://apis.io/collections/aqua-security/open-aqua-security-policies-api/)
+- [Aqua Security REST Authentication Registries API](https://apis.io/collections/aqua-security/open-aqua-security-registries-api/)
+- [Aqua Security REST Authentication Users API](https://apis.io/collections/aqua-security/open-aqua-security-users-api/)
+- [Aqua Security REST Authentication API](https://apis.io/collections/aqua-security/postman-aqua-security-authentication-api/)
+- [Aqua Security REST Authentication Containers API](https://apis.io/collections/aqua-security/postman-aqua-security-containers-api/)
+- [Aqua Security REST Authentication Images API](https://apis.io/collections/aqua-security/postman-aqua-security-images-api/)
+- [Aqua Security REST Authentication Policies API](https://apis.io/collections/aqua-security/postman-aqua-security-policies-api/)
+- [Aqua Security REST Authentication Registries API](https://apis.io/collections/aqua-security/postman-aqua-security-registries-api/)
+- [Aqua Security REST Authentication Users API](https://apis.io/collections/aqua-security/postman-aqua-security-users-api/)
+
+#### Governance rules (2)
+
+Spectral rulesets for the provider's contracts.
+
+- [Aqua Security — jsonschema rules](https://apis.io/rules/aqua-security/aqua-security-jsonschema-spectral-rules/)
+- [Aqua Security API Rules](https://apis.io/rules/aqua-security/aqua-security-spectral-rules/)
+
+#### Security (3)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Aqua Security Authentication](https://apis.io/security/aqua-security/aqua-security-authentication/)
+- [Aqua Security Domain Security](https://apis.io/security/aqua-security/aqua-security-domain-security/)
+- [Aqua Security Vulnerability Disclosure](https://apis.io/security/aqua-security/aqua-security-vulnerability-disclosure/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Aqua Security Plans Pricing](https://apis.io/plans/aqua-security/aqua-security-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Aqua Security Rate Limits](https://apis.io/rate-limits/aqua-security/aqua-security-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Aqua Security Finops](https://apis.io/finops/aqua-security/aqua-security-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.aquasec.com/)
 - [Documentation](https://docs.aquasec.com/)
-- [GettingStarted](https://docs.aquasec.com/docs/getting-started)
-- [APIReference](https://docs.aquasec.com/reference/api-overview)
-- [Authentication](https://docs.aquasec.com/reference/authentication)
-- [OpenAPI](openapi/aqua-security-api.yaml)
-- [JSONSchema](json-schema/)
-
-### Trivy
-Trivy is a comprehensive open source security scanner for containers, Kubernetes, code repositories, clouds, and more — finding vulnerabilities, misconfigurations, secrets, and SBOMs.
-
-**Human URL:** [https://trivy.dev/](https://trivy.dev/)
-
-#### Tags:
-
- - Container Scanning, Open Source, Vulnerability Scanner, SBOM, Kubernetes Security
-
-#### Properties
-
-- [Documentation](https://aquasecurity.github.io/trivy/)
-- [GettingStarted](https://aquasecurity.github.io/trivy/latest/getting-started/installation/)
-- [GitHubRepository](https://github.com/aquasecurity/trivy)
-
-### Tracee
-Tracee is a runtime security and forensics tool for Linux that uses eBPF technology to trace system events and detect suspicious behavioral patterns.
-
-**Human URL:** [https://aquasecurity.github.io/tracee/](https://aquasecurity.github.io/tracee/)
-
-#### Tags:
-
- - eBPF, Runtime Security, Linux Security, Forensics, Open Source
-
-#### Properties
-
-- [Documentation](https://aquasecurity.github.io/tracee/)
-- [GitHubRepository](https://github.com/aquasecurity/tracee)
-
-## Common Properties
-
-- [Portal](https://www.aquasec.com/)
-- [Documentation](https://docs.aquasec.com/)
-- [GitHubOrganization](https://github.com/aquasecurity)
-- [Blog](https://www.aquasec.com/blog/)
 - [Pricing](https://www.aquasec.com/aqua-cloud/)
-- [SignUp](https://www.aquasec.com/demo/)
 - [Support](https://support.aquasec.com/)
-- [StatusPage](https://status.aquasec.com/)
-- [TermsOfService](https://www.aquasec.com/aqua-cloud/terms-of-service/)
-- [PrivacyPolicy](https://www.aquasec.com/privacy-policy/)
-- [ReleaseNotes](https://docs.aquasec.com/docs/release-notes)
+- [Blog](https://www.aquasec.com/blog/)
+- [Terms of service](https://www.aquasec.com/aqua-cloud/terms-of-service/)
+- [Privacy policy](https://www.aquasec.com/privacy-policy/)
+- [GitHub](https://github.com/aquasecurity)
+- [Status](https://status.aquasec.com/)
 
-## Features
+## API Evangelist rating
 
-| Name | Description |
-|------|-------------|
-| Vulnerability Scanning | Comprehensive scanning of container images, VM workloads, and serverless functions for known CVEs and misconfigurations. |
-| Runtime Protection | Real-time protection of running containers and cloud workloads using behavioral analysis and policy enforcement. |
-| CSPM | Cloud Security Posture Management to identify and remediate misconfigurations across AWS, Azure, and GCP. |
-| Supply Chain Security | Protect the software supply chain by scanning code, open source dependencies, and CI/CD pipelines. |
-| Kubernetes Security | Native Kubernetes security including admission control, runtime policies, and compliance benchmarks. |
-| Compliance Enforcement | Automated compliance checks against CIS, PCI-DSS, HIPAA, NIST, and other regulatory frameworks. |
-| Secrets Detection | Detect and prevent secrets and credentials from being embedded in container images and code repositories. |
-| Network Policy | Visualize and enforce container network connectivity and micro-segmentation policies. |
+**Kin Score 40.8** — developing · rubric 0.25.0 · scored 2026-10-23
 
-## Use Cases
+| Facet | Score |
+|---|---|
+| Discoverability | 61.7 |
+| Contract quality | 26.2 |
+| Contract governance | 27.3 |
+| Operational transparency | 50.0 |
+| Developer ergonomics | 27.4 |
+| Access clarity | 28.9 |
 
-| Name | Description |
-|------|-------------|
-| Container Security | Secure Docker and OCI containers throughout the build-to-runtime lifecycle. |
-| Kubernetes Security | Enforce security policies, runtime protection, and compliance for Kubernetes clusters. |
-| Serverless Security | Protect AWS Lambda, Azure Functions, and Google Cloud Functions from vulnerabilities and runtime attacks. |
-| DevSecOps | Integrate security scanning into CI/CD pipelines to shift security left and prevent vulnerabilities from reaching production. |
-| Cloud Workload Protection | Protect VMs and cloud workloads across multi-cloud environments from threats and misconfigurations. |
-| SBOM Generation | Generate Software Bill of Materials (SBOM) for container images and code repositories to understand component risk. |
+**Agent readiness 33.2** — agent-ready
 
-## Integrations
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | documented (partial credit) |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | verified |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | distinct |
 
-| Name | Description |
-|------|-------------|
-| AWS | Native integrations with AWS ECS, EKS, Lambda, ECR, Security Hub, and other AWS services. |
-| Azure | Integrations with Azure Kubernetes Service, Azure Container Registry, and Azure Security Center. |
-| Google Cloud | Support for GKE, Google Container Registry, and Cloud Run on Google Cloud Platform. |
-| GitHub Actions | Trivy GitHub Action for automated vulnerability scanning in CI/CD workflows. |
-| Jenkins | Jenkins plugin for container image scanning and policy enforcement in pipelines. |
-| Terraform | Terraform provider for declarative management of Aqua Security platform configuration. |
-| Helm | Official Helm charts for deploying Aqua Security components on Kubernetes. |
-| Splunk | Integration with Splunk for centralized security event logging and SIEM. |
-| PagerDuty | Alert routing to PagerDuty for runtime security event notifications. |
-| Slack | Security alert notifications delivered to Slack channels. |
+**Regulatory alignment 22.5** — Horizontal (data, software, accessibility, platform)
 
-## Artifacts
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/aqua-security/](https://apis.io/providers/aqua-security/).
 
-Machine-readable API specifications organized by format.
+## How this profile is made
 
-### OpenAPI
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
 
-- [Aqua Security REST API](openapi/aqua-security-api.yaml)
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Aqua Security: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
 
-### JSON Schema
+## Open an issue
 
-- [Login Request](json-schema/aqua-security-api-login-request-schema.json)
-- [Login Response](json-schema/aqua-security-api-login-response-schema.json)
-- [Image](json-schema/aqua-security-api-image-schema.json)
-- [Image Detail](json-schema/aqua-security-api-image-detail-schema.json)
-- [Image List](json-schema/aqua-security-api-image-list-schema.json)
-- [Image Request](json-schema/aqua-security-api-image-request-schema.json)
-- [Container](json-schema/aqua-security-api-container-schema.json)
-- [Container List](json-schema/aqua-security-api-container-list-schema.json)
-- [Policy](json-schema/aqua-security-api-policy-schema.json)
-- [Policy List](json-schema/aqua-security-api-policy-list-schema.json)
-- [Policy Request](json-schema/aqua-security-api-policy-request-schema.json)
-- [Registry](json-schema/aqua-security-api-registry-schema.json)
-- [Registry List](json-schema/aqua-security-api-registry-list-schema.json)
-- [User](json-schema/aqua-security-api-user-schema.json)
-- [User List](json-schema/aqua-security-api-user-list-schema.json)
-- [Vulnerability Counts](json-schema/aqua-security-api-vulnerability-counts-schema.json)
-- [Error Response](json-schema/aqua-security-api-error-response-schema.json)
-
-### JSON Structure
-
-- [Login Request Structure](json-structure/aqua-security-api-login-request-structure.json)
-- [Image Structure](json-structure/aqua-security-api-image-structure.json)
-- [Container Structure](json-structure/aqua-security-api-container-structure.json)
-- [Policy Structure](json-structure/aqua-security-api-policy-structure.json)
-
-### JSON-LD
-
-- [Aqua Security API Context](json-ld/aqua-security-api-context.jsonld)
-
-### Examples
-
-- [Image Example](examples/aqua-security-api-image-example.json)
-- [Container Example](examples/aqua-security-api-container-example.json)
-- [Policy Example](examples/aqua-security-api-policy-example.json)
-- [Registry Example](examples/aqua-security-api-registry-example.json)
-- [User Example](examples/aqua-security-api-user-example.json)
-
-## Vocabulary
-
-- [Aqua Security Vocabulary](vocabulary/aqua-security-vocabulary.yaml) — Unified taxonomy mapping 6 resources, 8 actions, 0 workflows, and 3 personas across operational (OpenAPI) and capability (Naftiko) dimensions
-
-## Rules
-
-- [Aqua Security Spectral Rules](rules/aqua-security-spectral-rules.yml) — 28 rules across 13 categories enforcing Aqua Security API conventions
-
-## Maintainers
-
-**FN:** Kin Lane
-
-**Email:** kin@apievangelist.com
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/aqua-security/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
